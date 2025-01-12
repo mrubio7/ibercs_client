@@ -4,36 +4,23 @@ import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarShortcut, Men
 import { useColorMode } from '@vueuse/core'
 import { Icon } from '@iconify/vue'
 import { PathRoutes } from '@/router';
-import { onBeforeMount, onMounted, ref, watchEffect } from 'vue';
-// import { ApiBackend } from '@/api/api_backend';
-// import { ProminentPlayer } from '@/entities/players';
-// import Prominent_players from '@/components/ibercs/cards/prominent_players.vue';
-import LoginFaceit from '@/components/ibercs/user_login/LoginFaceit.vue';
+import { onBeforeMount, ref, watchEffect } from 'vue';
+import LoginFaceit from '@/components/ibercs/user/components/LoginFaceit.vue';
 import { Logout } from '@/libs/utils';
-// import Streams from '@/components/ibercs/cards/streams.vue';
-// import Matches from '@/components/ibercs/cards/matches.vue';
-// import Advertisement from '@/components/ibercs/cards/advertisement.vue';
-// import { IsAlreadyLogged, UserState } from '@/components/ibercs/user_login/state';
 import { Toaster } from '@/components/ui/toast';
 import MenubarSubTrigger from '@/components/ui/menubar/MenubarSubTrigger.vue';
 import MenubarSubContent from '@/components/ui/menubar/MenubarSubContent.vue';
 import Button from '@/components/ui/button/Button.vue';
-import { ItsAlreadyLogged } from '@/states/auth_state';
+import { ItsAlreadyLogged } from '@/components/ibercs/user/auth_state';
 import { User_Authenticated } from '@/entities/dto_login';
-import AuthState from '@/states/auth_state';
+import AuthState from '@/components/ibercs/user/auth_state';
 
 const mode = useColorMode()
-
-//const prominentPlayers = ref([] as ProminentPlayer[]);
 const auth = ref<User_Authenticated | undefined>(undefined)
 
 onBeforeMount(async () => {
     ItsAlreadyLogged()
 });
-
-onMounted(async () => {
-    //prominentPlayers.value = await ApiBackend.Players.GetProminentPlayers();
-})
 
 watchEffect(() => {
     auth.value = AuthState
@@ -64,43 +51,9 @@ watchEffect(() => {
                                         Clasificación
                                     </MenubarItem>
                                 </RouterLink>
-                                <!--
-                                <MenubarSeparator />
-                                    <RouterLink :to="PathRoutes.LookingForTeam">
-                                        <MenubarItem class="cursor-pointer">
-                                            Jugadores libres
-                                        </MenubarItem>
-                                    </RouterLink>
-                                -->
                             </MenubarContent>
                         </MenubarMenu>
     
-                        <!-- <MenubarMenu class="flex">
-                            <MenubarTrigger class="cursor-pointer dark:hover:bg-slate-800 hover:bg-slate-200 transition p-2 px-4">Equipos</MenubarTrigger>
-                            <MenubarContent>
-                                <RouterLink :to="PathRoutes.Ladder_Teams">
-                                    <MenubarItem class="cursor-pointer">
-                                        Clasificación
-                                    </MenubarItem>
-                                </RouterLink>
-                            </MenubarContent>
-                        </MenubarMenu>
-    
-                        <MenubarMenu class="flex">
-                            <MenubarTrigger class="cursor-pointer dark:hover:bg-slate-800 hover:bg-slate-200 transition p-2 px-4">Competiciones</MenubarTrigger>
-                            <MenubarContent>
-                                <RouterLink :to="PathRoutes.Tournaments">
-                                    <MenubarItem class="cursor-pointer">
-                                        Ver competiciones
-                                    </MenubarItem>
-                                </RouterLink>
-                                <MenubarSeparator />
-                                <RouterLink :to="PathRoutes.Esea">
-                                    <MenubarItem class="cursor-pointer">ESEA</MenubarItem>
-                                </RouterLink>
-                                
-                            </MenubarContent>
-                        </MenubarMenu> -->
                     </Menubar>
                 </div>
                 <div class="lg:hidden flex">
@@ -124,35 +77,9 @@ watchEffect(() => {
                                         <RouterLink :to="PathRoutes.Ladder_Players">
                                             <MenubarItem class="cursor-pointer">Clasificación</MenubarItem>
                                         </RouterLink>
-                                        <!-- <MenubarSeparator />
-                                        <RouterLink :to="PathRoutes.LookingForTeam">
-                                            <MenubarItem class="cursor-pointer">Jugadores libres</MenubarItem>
-                                        </RouterLink> -->
-                                    </MenubarSubContent>
-                                </MenubarSub>
-
-                                <!-- <MenubarSub>
-                                    <MenubarSubTrigger>Equipos</MenubarSubTrigger>
-                                    <MenubarSubContent>
-                                        <RouterLink :to="PathRoutes.Ladder_Teams">
-                                            <MenubarItem class="cursor-pointer">Clasificación</MenubarItem>
-                                        </RouterLink>
-                                    </MenubarSubContent>
-                                </MenubarSub>
-
-                                <MenubarSub>
-                                    <MenubarSubTrigger>Competiciones</MenubarSubTrigger>
-                                    <MenubarSubContent>
-                                        <RouterLink :to="PathRoutes.Tournaments">
-                                            <MenubarItem class="cursor-pointer">Ver competiciones</MenubarItem>
-                                        </RouterLink>
-                                        <MenubarSeparator />
-                                        <RouterLink :to="PathRoutes.Esea">
-                                            <MenubarItem class="cursor-pointer">ESEA</MenubarItem>
-                                        </RouterLink>
-                                    </MenubarSubContent>
-                                </MenubarSub> -->
                                     
+                                    </MenubarSubContent>
+                                </MenubarSub>
                                
                             </MenubarContent>
                         </MenubarMenu>

@@ -1,5 +1,6 @@
 import { ApiBackend } from "@/api/api_backend";
 import ApiLocalStorage from "@/api/api_localstorage";
+import { DTO_AuthFaceitCallback } from "@/api/dto/request";
 import { User_Authenticated, User_Authenticated_WithToken } from "@/entities/dto_login";
 import { reactive } from "vue";
 
@@ -11,8 +12,9 @@ const AuthState = reactive<User_Authenticated>({
 })
 
 export const AuthenticateFromFaceit = async (code:string): Promise<boolean> => {
-    const res = await ApiBackend.Users.AuthCallback(code)
-    if (res.error != "Ok") {
+    const dto: DTO_AuthFaceitCallback = {code: code, code_verifier: localStorage.getItem('faceit_code_verifier')!}
+    const res = await ApiBackend.Users.AuthCallback(dto)
+    if (!res.ok) {
         return false
     }
     const userData = res.data as User_Authenticated_WithToken
@@ -27,7 +29,7 @@ export const ItsAlreadyLogged = async () => {
     }
 
     const res = await ApiBackend.Users.IsValidToken(token)
-    if (res.error != "Ok") {
+    if (!res.ok) {
         ApiLocalStorage.User.Remove()
         ApiLocalStorage.Token.Remove()
         return false

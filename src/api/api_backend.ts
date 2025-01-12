@@ -1,6 +1,8 @@
 import { PlayerModel } from "@/entities/players"
-import { authenticated_delete, authenticated_post, basic_get, basic_post } from "@/libs/fetchs"
+import { DELETE, GET, POST } from "@/libs/fetchs"
 import { Token } from "@/entities/Token"
+import { DTO_AuthFaceitCallback } from "./dto/request"
+import { BuildPayload } from "@/libs/payload"
 
 const getHost = (): string => {
     let host = import.meta.env.VITE_BACKEND_HOST
@@ -10,39 +12,34 @@ const getHost = (): string => {
 
 export const ApiBackend = {
     Users: {
-        AuthCallback: async (code: string) => {
-            const codeVerifier = localStorage.getItem('faceit_code_verifier');
+        AuthCallback: async (dto: DTO_AuthFaceitCallback) => {
+            const payload = BuildPayload("json", dto)
             const endpoint = `${getHost()}/auth/faceit`;
-            const res = await basic_post(endpoint, { "code": code, "code_verifier": codeVerifier })
+            const res = await POST(endpoint, false, payload)
             localStorage.removeItem('faceit_code_verifier');
             return res
         },
         IsValidToken: async (token:Token) => {
+            const payload = BuildPayload("json", token)
             const endpoint = `${getHost()}/auth`;
-            const res = await basic_post(endpoint, {
-                "AccessToken":token.AccessToken,
-                "RefreshToken":token.RefreshToken,
-                "TokenType":token.TokenType,
-                "ExpiresIn":token.ExpiresIn,
-                "ExpiresAt":token.ExpiresAt
-            })
+            const res = await POST(endpoint, false, payload)
             return res
         },
         Login: async () => {
             const endpoint = `${getHost()}/auth`;
-            const res = await authenticated_post(endpoint, {})
+            const res = await POST(endpoint, true, null)
             return res
         },
         Logout: async () => {
             const endpoint = `${getHost()}/auth`;
-            const res = await authenticated_delete(endpoint, {})
+            const res = await DELETE(endpoint, true, null)
             return res
         }
     },
     Players: {
         GetAll: async () => {
             const endpoint = `${getHost()}/players`;
-            const res = await basic_get(endpoint)
+            const res = await GET(endpoint, false)
             return res.data as PlayerModel[]
         },
     }

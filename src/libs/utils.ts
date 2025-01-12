@@ -4,7 +4,7 @@ import { LEAGUES, PLAYER_ROLES } from './consts';
 import { ApiBackend } from '@/api/api_backend';
 import { useToast } from '@/components/ui/toast/use-toast'
 import router from '@/router';
-import { ClearAuthState } from '@/states/auth_state';
+import { ClearAuthState } from '@/components/ibercs/user/auth_state';
 
 const { toast } = useToast()
 
@@ -43,7 +43,7 @@ export async function generateCodeChallenge(codeVerifier: string): Promise<strin
 
 export const Logout = async () => {
   const res = await ApiBackend.Users.Logout()
-  if (res.error === null) {
+  if (res.ok) {
     ClearAuthState()
     toast({
       title: 'Sesion cerrada',
