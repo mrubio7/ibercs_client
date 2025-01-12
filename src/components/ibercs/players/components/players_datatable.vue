@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Icon } from '@iconify/vue'
 import { PlayerModel } from '@/entities/players'
-import { calculatePercentiles, filterPlayers, getColor } from '../player_datatable_utils'
+import { calculatePercentiles, filterPlayers, getColor } from './player_datatable_utils'
 import { useRoute, useRouter } from 'vue-router'
 import { formatTimestampToDateTime } from '@/libs/utils'
 
