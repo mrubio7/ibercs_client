@@ -1,5 +1,5 @@
 <script setup lang="ts">
-    import Players_datatable from '../components/ibercs/players_datatable/players_datatable.vue';
+    import Players_datatable from '@/components/ibercs/players/components/players_datatable.vue';
     import { ApiBackend } from '@/api/api_backend';
     import { PlayerModel } from '@/entities/players';
     import { ref, onMounted } from 'vue';
