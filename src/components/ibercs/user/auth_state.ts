@@ -1,14 +1,24 @@
 import { ApiBackend } from "@/api/api_backend";
 import ApiLocalStorage from "@/api/api_localstorage";
 import { DTO_AuthFaceitCallback } from "@/api/dto/request";
-import { User_Authenticated, User_Authenticated_WithToken } from "@/entities/dto_login";
+import { User_Auth, User_Auth_WithToken } from "@/entities/user";
 import { reactive } from "vue";
 
-const AuthState = reactive<User_Authenticated>({
+const AuthState = reactive<User_Auth>({
     FaceitId: "",
 	Username: "",
 	Avatar: "",
-	Elo: 0,
+	Profile: {
+        Description:"",
+        Instagram:"",
+        Kick:"",
+        SteamURL:"",
+        Twitch:"",
+        Twitter:"",
+    },
+    Roles: {
+        SuperAdmin: false
+    }
 })
 
 export const AuthenticateFromFaceit = async (code:string): Promise<boolean> => {
@@ -17,7 +27,7 @@ export const AuthenticateFromFaceit = async (code:string): Promise<boolean> => {
     if (!res.ok) {
         return false
     }
-    const userData = res.data as User_Authenticated_WithToken
+    const userData = res.data as User_Auth_WithToken
     setUserAuthenticated(userData)
     return true
 }
@@ -34,24 +44,35 @@ export const ItsAlreadyLogged = async () => {
         ApiLocalStorage.Token.Remove()
         return false
     }
-    const userData = res.data as User_Authenticated_WithToken
+    const userData = res.data as User_Auth_WithToken
     setUserAuthenticated(userData)
 }
 
 export const ClearAuthState = () => {
     AuthState.FaceitId = ""
     AuthState.Avatar = ""
-    AuthState.Elo = 0
     AuthState.Username = ""
+    AuthState.Profile = {
+        Description:"",
+        Instagram:"",
+        Kick:"",
+        SteamURL:"",
+        Twitch:"",
+        Twitter:"",
+    },
+    AuthState.Roles = {
+        SuperAdmin: false
+    }
     ApiLocalStorage.User.Remove()
     ApiLocalStorage.Token.Remove()
 }
 
-const setUserAuthenticated = (user:User_Authenticated_WithToken) => {
+const setUserAuthenticated = (user:User_Auth_WithToken) => {
     AuthState.FaceitId = user.FaceitId
     AuthState.Avatar = user.Avatar
-    AuthState.Elo = user.Elo
     AuthState.Username = user.Username
+    AuthState.Roles = user.Roles
+    AuthState.Profile = user.Profile
     ApiLocalStorage.Token.Save(user.Token)
     ApiLocalStorage.User.Save(user)
 }

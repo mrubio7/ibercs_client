@@ -34,7 +34,7 @@ export const ApiBackend = {
             const endpoint = `${getHost()}/auth`;
             const res = await DELETE(endpoint, true, null)
             return res
-        }
+        },
     },
     Players: {
         GetAll: async () => {

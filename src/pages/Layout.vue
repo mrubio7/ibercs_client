@@ -12,7 +12,7 @@ import MenubarSubTrigger from '@/components/ui/menubar/MenubarSubTrigger.vue';
 import MenubarSubContent from '@/components/ui/menubar/MenubarSubContent.vue';
 import Button from '@/components/ui/button/Button.vue';
 import { ItsAlreadyLogged } from '@/components/ibercs/user/auth_state';
-import { User_Authenticated } from '@/entities/dto_login';
+import { User_Authenticated } from '@/entities/user';
 import AuthState from '@/components/ibercs/user/auth_state';
 
 const mode = useColorMode()

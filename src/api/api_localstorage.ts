@@ -1,4 +1,4 @@
-import { User_Authenticated } from "@/entities/dto_login"
+import { User_Authenticated } from "@/entities/user"
 import { Token } from "@/entities/Token"
 
 const ApiLocalStorage = {
