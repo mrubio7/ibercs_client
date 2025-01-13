@@ -79,13 +79,13 @@ const handleUpdateUser = async () => {
                         <IconButton v-if="!editMode" icon="cib:faceit" :url="`https://www.faceit.com/es/players/${props.user.Player?.Nickname}`" />
                         <IconButton v-if="!editMode" :disabled="payload.Twitter == ''"  icon="ri:twitter-x-line" :url="`https://x.com/${payload.Twitter}`" />
                         <InputIcon v-if="editMode" placeholder="Usuario" icon="ri:twitter-x-line" v-model="payload.Twitter" />
-                        <IconButton v-if="!editMode" :disabled="payload.Twitch == ''" icon="mdi:twitch" :url="`https://x.com/${payload.Twitch}`" />
+                        <IconButton v-if="!editMode" :disabled="payload.Twitch == ''" icon="mdi:twitch" :url="`https://www.twitch.tv/${payload.Twitch}`" />
                         <InputIcon v-if="editMode" placeholder="Usuario" icon="mdi:twitch" v-model="payload.Twitch" />
-                        <IconButton v-if="!editMode" :disabled="payload.Kick == ''" icon="ri:kick-fill" :url="`https://x.com/${payload.Kick}`" />
+                        <IconButton v-if="!editMode" :disabled="payload.Kick == ''" icon="ri:kick-fill" :url="`https://kick.com/${payload.Kick}`" />
                         <InputIcon v-if="editMode" placeholder="Usuario" icon="ri:kick-fill" v-model="payload.Kick" />
-                        <IconButton v-if="!editMode" :disabled="payload.Instagram == ''" icon="mdi:instagram" :url="`https://x.com/${payload.Instagram}`" />
+                        <IconButton v-if="!editMode" :disabled="payload.Instagram == ''" icon="mdi:instagram" :url="`https://www.instagram.com/${payload.Instagram}`" />
                         <InputIcon v-if="editMode" placeholder="Usuario" icon="mdi:instagram" v-model="payload.Instagram" />
-                        <IconButton v-if="!editMode" :disabled="payload.SteamURL == ''" icon="mdi:steam" :url="`https://x.com/${payload.SteamURL}`" />
+                        <IconButton v-if="!editMode" :disabled="payload.SteamURL == ''" icon="mdi:steam" :url="`${payload.SteamURL}`" />
                         <InputIcon v-if="editMode" placeholder="Link de perfil" icon="mdi:steam" v-model="payload.SteamURL" />
                         <Button v-if="!editMode" class="w-fit" variant="secondary" @click="editMode = true">Editar perfil</Button>
                     </div>
