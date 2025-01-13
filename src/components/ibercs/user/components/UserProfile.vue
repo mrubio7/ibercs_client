@@ -7,9 +7,11 @@ import InputIcon from '@/components/ui/input-icon/InputIcon.vue';
 import Input from '@/components/ui/input/Input.vue';
 import Textarea from '@/components/ui/textarea/Textarea.vue';
 import { useToast } from '@/components/ui/toast';
+import { Profile } from '@/entities/profile';
 import { Roles } from '@/entities/roles';
 import { User } from '@/entities/user';
-import { PropType, ref, watchEffect } from 'vue';
+import router, { PathRoutes } from '@/router';
+import { onMounted, PropType, ref, watchEffect } from 'vue';
 
 const { toast } = useToast()
 
@@ -28,29 +30,20 @@ const props = defineProps({
     }
 })
 
-const editMode = ref<Boolean>(false)
-const payload = ref<DTO_UpdateUser>({
-        Description: props.user.Profile.Description,
-        Instagram: props.user.Profile.Instagram,
-        Kick: props.user.Profile.Kick,
-        SteamURL: props.user.Profile.SteamURL,
-        Twitch: props.user.Profile.Twitch,
-        Twitter: props.user.Profile.Twitter,
-        Username: props.user.Username
+const setPayload = (user:User):DTO_UpdateUser => {
+    return {
+        Description: user.Profile.Description,
+        Instagram: user.Profile.Instagram,
+        Kick: user.Profile.Kick,
+        SteamURL: user.Profile.SteamURL,
+        Twitch: user.Profile.Twitch,
+        Twitter: user.Profile.Twitter,
+        Username: user.Username
     }
-)
+}
 
-watchEffect(() => {
-    payload.value = {
-        Description: props.user.Profile.Description,
-        Instagram: props.user.Profile.Instagram,
-        Kick: props.user.Profile.Kick,
-        SteamURL: props.user.Profile.SteamURL,
-        Twitch: props.user.Profile.Twitch,
-        Twitter: props.user.Profile.Twitter,
-        Username: props.user.Username
-    }
-})
+const editMode = ref<Boolean>(false)
+const payload = ref<DTO_UpdateUser>(setPayload(props.user))
 
 const handleUpdateUser = async () => {
     const res = await ApiBackend.Users.UpdateProfile(payload.value)
@@ -68,6 +61,7 @@ const handleUpdateUser = async () => {
     })
     editMode.value = false
 }
+
 </script>
 
 <template>
@@ -77,7 +71,7 @@ const handleUpdateUser = async () => {
                 <img :src="props.user.Avatar" class="rounded border-2"></img>
                 <div class="flex flex-col gap-2">
                     <span class="text-2xl font-bold text-slate-700 dark:text-slate-300">{{ props.user.Player?.Nickname }}</span>
-                    <span v-if="props.user.Username != props.user.Player?.Nickname && !editMode" class="text-xl font-semibold text-slate-500">{{ props.user.Username }}</span>
+                    <span v-if="props.user.Username != props.user.Player?.Nickname && !editMode" class="text-xl font-semibold text-slate-500">{{ payload.Username }}</span>
                     <Input v-if="editMode" v-model="payload.Username" placeholder="Nombre de usuario" class="w-48" />
                 </div>
             </div>
@@ -85,15 +79,15 @@ const handleUpdateUser = async () => {
                 <div v-if="myProfile || props.roles.SuperAdmin" class="flex flex-col items-end gap-2 h-full justify-between">
                     <div class="flex justify-end items-center gap-3">
                         <IconButton v-if="!editMode" icon="cib:faceit" :url="`https://www.faceit.com/es/players/${props.user.Player?.Nickname}`" />
-                        <IconButton v-if="!editMode" :disabled="props.user.Profile.Twitter == ''"  icon="ri:twitter-x-line" :url="`https://x.com/${props.user.Profile.Twitter}`" />
+                        <IconButton v-if="!editMode" :disabled="payload.Twitter == ''"  icon="ri:twitter-x-line" :url="`https://x.com/${payload.Twitter}`" />
                         <InputIcon v-if="editMode" placeholder="Usuario" icon="ri:twitter-x-line" v-model="payload.Twitter" />
-                        <IconButton v-if="!editMode" :disabled="props.user.Profile.Twitch == ''" icon="mdi:twitch" :url="`https://x.com/${props.user.Profile.Twitch}`" />
+                        <IconButton v-if="!editMode" :disabled="payload.Twitch == ''" icon="mdi:twitch" :url="`https://x.com/${payload.Twitch}`" />
                         <InputIcon v-if="editMode" placeholder="Usuario" icon="mdi:twitch" v-model="payload.Twitch" />
-                        <IconButton v-if="!editMode" :disabled="props.user.Profile.Kick == ''" icon="ri:kick-fill" :url="`https://x.com/${props.user.Profile.Kick}`" />
+                        <IconButton v-if="!editMode" :disabled="payload.Kick == ''" icon="ri:kick-fill" :url="`https://x.com/${payload.Kick}`" />
                         <InputIcon v-if="editMode" placeholder="Usuario" icon="ri:kick-fill" v-model="payload.Kick" />
-                        <IconButton v-if="!editMode" :disabled="props.user.Profile.Instagram == ''" icon="mdi:instagram" :url="`https://x.com/${props.user.Profile.Instagram}`" />
+                        <IconButton v-if="!editMode" :disabled="payload.Instagram == ''" icon="mdi:instagram" :url="`https://x.com/${payload.Instagram}`" />
                         <InputIcon v-if="editMode" placeholder="Usuario" icon="mdi:instagram" v-model="payload.Instagram" />
-                        <IconButton v-if="!editMode" :disabled="props.user.Profile.SteamURL == ''" icon="mdi:steam" :url="`https://x.com/${props.user.Profile.SteamURL}`" />
+                        <IconButton v-if="!editMode" :disabled="payload.SteamURL == ''" icon="mdi:steam" :url="`https://x.com/${payload.SteamURL}`" />
                         <InputIcon v-if="editMode" placeholder="Link de perfil" icon="mdi:steam" v-model="payload.SteamURL" />
                         <Button v-if="!editMode" class="w-fit" variant="secondary" @click="editMode = true">Editar perfil</Button>
                     </div>
