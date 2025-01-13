@@ -4,7 +4,7 @@ import { LEAGUES, PLAYER_ROLES } from './consts';
 import { ApiBackend } from '@/api/api_backend';
 import { useToast } from '@/components/ui/toast/use-toast'
 import router from '@/router';
-import { ClearAuthState } from '@/components/ibercs/user/auth_state';
+import { ClearAuthState } from '@/components/ibercs/user/user_state';
 
 const { toast } = useToast()
 

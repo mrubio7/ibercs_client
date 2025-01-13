@@ -1,10 +1,10 @@
 <script setup lang="ts">
     import Players_datatable from '@/components/ibercs/players/components/players_datatable.vue';
     import { ApiBackend } from '@/api/api_backend';
-    import { PlayerModel } from '@/entities/players';
+    import { Player } from '@/entities/players';
     import { ref, onMounted } from 'vue';
 
-    const players = ref([] as PlayerModel[]);
+    const players = ref([] as Player[]);
 
     document.title = "IBERCS - Jugadores"
 

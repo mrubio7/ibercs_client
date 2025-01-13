@@ -2,7 +2,7 @@
 import { onMounted } from 'vue';
 import Spinner from '@/components/ui/spinner/Spinner.vue';
 import { Icon } from '@iconify/vue/dist/iconify.js';
-import { AuthenticateFromFaceit } from '@/components/ibercs/user/auth_state'
+import { AuthenticateFromFaceit } from '@/components/ibercs/user/user_state'
 
 document.title = "IBERCS - Inicio de sesión"
 

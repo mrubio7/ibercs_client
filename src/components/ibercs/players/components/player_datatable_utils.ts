@@ -1,14 +1,14 @@
 import { computed, Ref } from 'vue';
-import { PlayerModel } from '@/entities/players';
+import { Player } from '@/entities/players';
 
-export interface PlayerWithRank extends PlayerModel {
+export interface PlayerWithRank extends Player {
 	GlobalRank: number;
 }
 
 export const filterPlayers = (
-	players: PlayerModel[],
+	players: Player[],
 	searchTerm: Ref<string>,
-	sortBy: Ref<keyof PlayerModel['Stats'] | 'Nickname' | 'Elo'>,
+	sortBy: Ref<keyof Player['Stats'] | 'Nickname' | 'Elo'>,
 	sortOrder: Ref<'asc' | 'desc'>
 ) => {
 	return computed<PlayerWithRank[]>(() => {

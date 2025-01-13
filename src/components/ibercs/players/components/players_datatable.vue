@@ -8,7 +8,7 @@ import Spinner from '@/components/ui/spinner/Spinner.vue'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Icon } from '@iconify/vue'
-import { PlayerModel } from '@/entities/players'
+import { Player } from '@/entities/players'
 import { calculatePercentiles, filterPlayers, getColor } from './player_datatable_utils'
 import { useRoute, useRouter } from 'vue-router'
 import { formatTimestampToDateTime } from '@/libs/utils'
@@ -19,12 +19,12 @@ const router = useRouter();
 // Props
 const props = defineProps({
 	players: {
-		type: Array as PropType<PlayerModel[]>,
+		type: Array as PropType<Player[]>,
 		required: true
 	}
 })
 
-interface PlayerWithRank extends PlayerModel {
+interface PlayerWithRank extends Player {
   GlobalRank: number;
 }
 
@@ -32,7 +32,7 @@ const currentPage = ref(1)
 const pageSize = ref(12) // Número de jugadores por página
 
 const searchTerm = ref<string>(Array.isArray(route.query["search"]) ? route.query["search"][0] || '' : (route.query["search"] as string || ''));
-const sortBy = ref<keyof PlayerModel['Stats'] | 'Nickname' | 'Elo'>('Elo')
+const sortBy = ref<keyof Player['Stats'] | 'Nickname' | 'Elo'>('Elo')
 const sortOrder = ref<'asc' | 'desc'>('desc') // orden por defecto
 
 const filteredPlayers = ref<PlayerWithRank[]>([]);
@@ -71,7 +71,7 @@ const prevPage = () => {
 	if (currentPage.value > 1) currentPage.value--
 }
 
-const changeSort = (column: keyof PlayerModel['Stats'] | 'Nickname' | 'Elo') => {
+const changeSort = (column: keyof Player['Stats'] | 'Nickname' | 'Elo') => {
 	if (sortBy.value === column) {
 		// Cambiar el orden (ascendente/descendente) si se vuelve a hacer clic en la misma columna
 		sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'

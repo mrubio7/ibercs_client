@@ -4,7 +4,7 @@ import { DTO_AuthFaceitCallback } from "@/api/dto/request";
 import { User_Auth, User_Auth_WithToken } from "@/entities/user";
 import { reactive } from "vue";
 
-const AuthState = reactive<User_Auth>({
+const UserState = reactive<User_Auth>({
     FaceitId: "",
 	Username: "",
 	Avatar: "",
@@ -18,7 +18,8 @@ const AuthState = reactive<User_Auth>({
     },
     Roles: {
         SuperAdmin: false
-    }
+    },
+    Player: undefined
 })
 
 export const AuthenticateFromFaceit = async (code:string): Promise<boolean> => {
@@ -49,10 +50,10 @@ export const ItsAlreadyLogged = async () => {
 }
 
 export const ClearAuthState = () => {
-    AuthState.FaceitId = ""
-    AuthState.Avatar = ""
-    AuthState.Username = ""
-    AuthState.Profile = {
+    UserState.FaceitId = ""
+    UserState.Avatar = ""
+    UserState.Username = ""
+    UserState.Profile = {
         Description:"",
         Instagram:"",
         Kick:"",
@@ -60,7 +61,7 @@ export const ClearAuthState = () => {
         Twitch:"",
         Twitter:"",
     },
-    AuthState.Roles = {
+    UserState.Roles = {
         SuperAdmin: false
     }
     ApiLocalStorage.User.Remove()
@@ -68,13 +69,14 @@ export const ClearAuthState = () => {
 }
 
 const setUserAuthenticated = (user:User_Auth_WithToken) => {
-    AuthState.FaceitId = user.FaceitId
-    AuthState.Avatar = user.Avatar
-    AuthState.Username = user.Username
-    AuthState.Roles = user.Roles
-    AuthState.Profile = user.Profile
+    UserState.FaceitId = user.FaceitId
+    UserState.Avatar = user.Avatar
+    UserState.Username = user.Username
+    UserState.Roles = user.Roles
+    UserState.Profile = user.Profile
+    UserState.Player = user.Player
     ApiLocalStorage.Token.Save(user.Token)
     ApiLocalStorage.User.Save(user)
 }
 
-export default AuthState
+export default UserState
