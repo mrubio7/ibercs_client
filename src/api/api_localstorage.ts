@@ -1,4 +1,4 @@
-import { User_Authenticated } from "@/entities/user"
+import { User_Auth } from "@/entities/user"
 import { Token } from "@/entities/Token"
 
 const ApiLocalStorage = {
@@ -17,7 +17,7 @@ const ApiLocalStorage = {
         }
     },
     User: {
-        Save: (user:User_Authenticated) => {
+        Save: (user:User_Auth) => {
             const data = btoa(JSON.stringify(user))
             localStorage.setItem("usermetadata", data)
         },
