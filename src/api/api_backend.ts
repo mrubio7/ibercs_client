@@ -58,6 +58,11 @@ export const ApiBackend = {
             const endpoint = `${getHost()}/latest-news?max=${max}`;
             const res = await GET(endpoint, false)
             return res
+        },
+        GetNewsById: async (id:number) => {
+            const endpoint = `${getHost()}/news?id=${id}`;
+            const res = await GET(endpoint, false)
+            return res
         }
     }
 }

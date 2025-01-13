@@ -27,7 +27,7 @@ var size = "1.2rem";
 onMounted(() => {
     switch (props.size!) {
         case "sm":
-            size = "0.8rem";
+            size = "0.85rem";
             return
         case "md":
             size = "1.2rem"
