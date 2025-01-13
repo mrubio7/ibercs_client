@@ -52,5 +52,12 @@ export const ApiBackend = {
             const res = await PUT(endpoint, true, null)
             return res
         }
+    },
+    News: {
+        GetLatestNews: async (max:number) => {
+            const endpoint = `${getHost()}/latest-news?max=${max}`;
+            const res = await GET(endpoint, false)
+            return res
+        }
     }
 }
