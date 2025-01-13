@@ -12,9 +12,12 @@ import { Player } from '@/entities/players'
 import { calculatePercentiles, filterPlayers, getColor } from './player_datatable_utils'
 import { useRoute, useRouter } from 'vue-router'
 import { formatTimestampToDateTime } from '@/libs/utils'
+import { ApiBackend } from '@/api/api_backend'
+import { useToast } from '@/components/ui/toast'
 
 const route = useRoute();
 const router = useRouter();
+const {toast} = useToast()
 
 // Props
 const props = defineProps({
@@ -48,7 +51,6 @@ watch(searchTerm, (newTerm) => {
   });
 });
 
-// Usar `watchEffect` para actualizar jugadores filtrados cuando props.players o los términos cambien
 watchEffect(() => {
 	if (props.players.length) {
 		filteredPlayers.value = filterPlayers(props.players, searchTerm, sortBy, sortOrder).value;
@@ -147,10 +149,39 @@ watch(
 	{ immediate: true }
 );
 
-
-// function redirectToPlayer(nickname:string) {
-// 	router.push(`/player/${nickname}`)
-// }
+const updating = ref<Map<number,boolean>>(new Map())
+const handleUpdatePlayer = async (index: number) => {
+	updating.value.set(index, true)
+	console.log(paginatedPlayers.value[index])
+	const res = await ApiBackend.Players.Update(paginatedPlayers.value[index].FaceitId)
+	if (!res.ok) {
+		toast({
+            title: "Ya se ha actualizado",
+            description: "Espera un poco antes de volver a actualizar."
+        })
+		updating.value.set(index, false)
+		return
+	}
+	paginatedPlayers.value[index].Avatar = res.data.Avatar
+	paginatedPlayers.value[index].FaceitElo = Math.round(res.data.FaceitElo * 100) / 100
+	paginatedPlayers.value[index].Nickname = res.data.Nickname
+	paginatedPlayers.value[index].Stats.KrRatio = Math.round(res.data.Stats.KrRatio * 100) / 100
+	paginatedPlayers.value[index].Stats.KdRatio = Math.round(res.data.Stats.KdRatio * 100) / 100
+	paginatedPlayers.value[index].Stats.KillsAverage = Math.round(res.data.Stats.KillsAverage * 100) / 100
+	paginatedPlayers.value[index].Stats.DeathsAverage = Math.round(res.data.Stats.DeathsAverage * 100) / 100
+	paginatedPlayers.value[index].Stats.HeadshotPercentAverage = Math.round(res.data.Stats.HeadshotPercentAverage * 100) / 100
+	paginatedPlayers.value[index].Stats.MVPAverage = Math.round(res.data.Stats.MVPAverage * 100) / 100
+	paginatedPlayers.value[index].Stats.AssistAverage = Math.round(res.data.Stats.AssistAverage * 100) / 100
+	paginatedPlayers.value[index].Stats.TripleKillsAverage = Math.round(res.data.Stats.TripleKillsAverage * 100) / 100
+	paginatedPlayers.value[index].Stats.QuadroKillsAverage = Math.round(res.data.Stats.QuadroKillsAverage * 100) / 100
+	paginatedPlayers.value[index].Stats.PentaKillsAverage = Math.round(res.data.Stats.PentaKillsAverage * 100) / 100
+	paginatedPlayers.value[index].Stats.UpdatedAt = res.data.Stats.UpdatedAt
+	updating.value.set(index, false)
+	toast({
+		title: "Actualizado",
+		description: "Jugador actualizado."
+	})
+}
 
 </script>
 
@@ -257,7 +288,7 @@ watch(
 
 			<!-- Cuerpo de la tabla -->
 			<TableBody>
-				<TableRow v-for="(player) in paginatedPlayers" :key="player.Id"  class="cursor-pointer">
+				<TableRow v-for="(player, i) in paginatedPlayers" :key="player.Id"  class="cursor-pointer">
 					<!-- @click="redirectToPlayer(player.Nickname)" -->
 					<TableCell class="text-left w-8 font-semibold text-slate-500">
 						{{ player.GlobalRank }}º
@@ -292,15 +323,17 @@ watch(
 					<TableCell v-if="player.Stats.MVPAverage != undefined" :class="getColor(player.Stats.MVPAverage, percentiles.MVPAverage.p10, percentiles.MVPAverage.p95, false)" class="text-center">
 						{{ player.Stats.MVPAverage }}
 					</TableCell>
-					<TableCell  class="text-right text-xs text-slate-600">
+					<TableCell  class="text-center text-xs text-slate-600">
 						<div v-if="!player.Stats.UpdatedAt.startsWith('0001')">
 							{{ formatTimestampToDateTime(new Date(player.Stats.UpdatedAt).getTime() / 1000) }}
 						</div>
-						<div v-else>
-							
-						</div>
 					</TableCell>
-					<TableCell class="text-center">
+					<TableCell class="text-right">
+						<Button variant="outline" size="icon" class="h-7 w-7" @click="handleUpdatePlayer(i)">
+							<Icon icon="ep:refresh" class="h-3.5 w-3.5 transition-all text-slate-600 dark:text-slate-400" :class="`${updating.get(i) ? 'animate-spin' : ''}`" />
+						</Button>
+					</TableCell>
+					<TableCell class="text-right">
 						<a :href="`https://www.faceit.com/es/players/${player.Nickname}`" target="_blank">
 							<Button variant="outline" size="icon" class="h-7 w-7">
 								<Icon icon="simple-icons:faceit" class="h-3 w-3 transition-all dark:rotate-0 dark:scale-100 text-orange-600" />
