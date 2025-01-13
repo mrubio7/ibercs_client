@@ -47,5 +47,10 @@ export const ApiBackend = {
             const res = await GET(endpoint, false)
             return res.data as Player[]
         },
+        Update: async (faceitId:string) => {
+            const endpoint = `${getHost()}/player?faceitId=${faceitId}`;
+            const res = await PUT(endpoint, true, null)
+            return res
+        }
     }
 }
