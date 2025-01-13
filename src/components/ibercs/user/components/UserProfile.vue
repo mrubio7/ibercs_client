@@ -7,11 +7,9 @@ import InputIcon from '@/components/ui/input-icon/InputIcon.vue';
 import Input from '@/components/ui/input/Input.vue';
 import Textarea from '@/components/ui/textarea/Textarea.vue';
 import { useToast } from '@/components/ui/toast';
-import { Profile } from '@/entities/profile';
 import { Roles } from '@/entities/roles';
 import { User } from '@/entities/user';
-import router, { PathRoutes } from '@/router';
-import { onMounted, PropType, ref, watchEffect } from 'vue';
+import { PropType, ref } from 'vue';
 
 const { toast } = useToast()
 
