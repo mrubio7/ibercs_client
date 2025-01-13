@@ -25,7 +25,7 @@ watchEffect(() => {
     </section>
     <section v-else>
         <div v-if="myUser">
-            <UserProfile :user="myUser" :roles="myUser.Roles" />
+            <UserProfile :user="myUser" :roles="myUser.Roles" :my-profile="true" />
         </div>
     </section>
 </template>
