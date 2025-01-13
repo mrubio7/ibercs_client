@@ -1,12 +1,13 @@
 import { Player } from "@/entities/players"
-import { DELETE, GET, POST, PUT } from "@/libs/fetchs"
+import { DELETE, GET, POST } from "@/libs/fetchs"
 import { Token } from "@/entities/Token"
-import { DTO_AuthFaceitCallback, DTO_UpdateUser } from "./dto/request"
+import { DTO_AuthFaceitCallback } from "./dto/request"
 import { BuildPayload } from "@/libs/payload"
 
 const getHost = (): string => {
-    let host = import.meta.env.VITE_BACKEND_HOST
-    return host
+    //let host = import.meta.env.VITE_BACKEND_HOST
+    //return host || "http://localhost:8080/api/v2"
+    return "http://localhost:8080/api/v2"
 }
 
 export const ApiBackend = {
@@ -32,12 +33,6 @@ export const ApiBackend = {
         Logout: async () => {
             const endpoint = `${getHost()}/auth`;
             const res = await DELETE(endpoint, true, null)
-            return res
-        },
-        UpdateProfile: async (profile:DTO_UpdateUser) => {
-            const payload = BuildPayload("form", profile)
-            const endpoint = `${getHost()}/user`;
-            const res = await PUT(endpoint, true, payload)
             return res
         }
     },
