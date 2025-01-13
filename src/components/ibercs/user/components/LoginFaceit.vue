@@ -4,11 +4,11 @@ import { generateCodeChallenge, generateCodeVerifier } from '@/libs/utils';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { ref, PropType } from 'vue';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
-import { User_Authenticated } from '@/entities/user';
+import { User_Auth } from '@/entities/user';
 
 const props = defineProps({
 	auth: {
-		type: Object as PropType<User_Authenticated | undefined>,
+		type: Object as PropType<User_Auth | undefined>,
 		required: true,
 	}
 })
