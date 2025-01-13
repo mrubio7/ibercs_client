@@ -2,9 +2,7 @@
 import { HTMLAttributes } from 'vue';
 import Input from '../input/Input.vue';
 import { useVModel } from '@vueuse/core';
-import { cn } from '@/libs/utils';
-import Icon from '../icon/icon.vue';
-import { MagnifyingGlassIcon } from '@radix-icons/vue';
+import Icon from '../icon/Icon.vue';
 
 const props = defineProps<{
   modelValue?: string | number
