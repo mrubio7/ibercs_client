@@ -6,7 +6,7 @@ import { BuildPayload } from "@/libs/payload"
 
 const getHost = (): string => {
     let host = import.meta.env.VITE_BACKEND_HOST
-    return host || "http://localhost:8080/api/v2"
+    return host
 }
 
 export const ApiBackend = {
