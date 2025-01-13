@@ -4,26 +4,20 @@ import Layout from './pages/Layout.vue'
 import LadderPlayersView from './pages/LadderPlayersView.vue'
 import FaceitCallback from './pages/FaceitCallback.vue'
 import NotFoundView from './pages/NotFoundView.vue'
+import MyProfileView from './pages/MyProfileView.vue'
 
 export const PathRoutes = {
 	Home: "/",
 	Ladder_Players: "/ladder/players",
-	Ladder_Teams: "/ladder/teams",
-	Team_Profile: "/team/:team_name",
-	Player_Profile: "/player/:player_name",
 	MyProfile: "/my-profile",
 	AuthCallback: "/auth/callback",
-	Administration: "/administration",
-	Tournaments: "/tournaments",
-	Match: "/match/:match_id",
-	LookingForTeam: "/looking-for-team",
-	Esea: "/esea",
 }
 
 const routes = [
 	{ path: PathRoutes.Home, component: Layout, children: [
 		{ path: "", component: HomeView },
 		{ path: PathRoutes.Ladder_Players, component: LadderPlayersView },
+		{ path: PathRoutes.MyProfile, component: MyProfileView }
 	]},
 	{ path: PathRoutes.AuthCallback, component: FaceitCallback},
 	{ path: "/:pathMatch(.*)*", component: NotFoundView },

@@ -1,4 +1,4 @@
-export interface PlayerStatsModel {
+export interface PlayerStats {
 	Id: number;
 	KrRatio: number;
 	KdRatio: number;
@@ -13,14 +13,14 @@ export interface PlayerStatsModel {
 	UpdatedAt: string;
 }
 
-export interface PlayerModel {
+export interface Player {
 	Id: number;
 	Avatar: string;
 	Nickname: string;
 	FaceitId: string;
 	SteamId?: string | null;
 	FaceitElo: number;
-	Stats: PlayerStatsModel;
+	Stats: PlayerStats;
 }
 
 export interface ProminentPlayer {

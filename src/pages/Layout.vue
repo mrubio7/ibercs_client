@@ -11,19 +11,19 @@ import { Toaster } from '@/components/ui/toast';
 import MenubarSubTrigger from '@/components/ui/menubar/MenubarSubTrigger.vue';
 import MenubarSubContent from '@/components/ui/menubar/MenubarSubContent.vue';
 import Button from '@/components/ui/button/Button.vue';
-import { ItsAlreadyLogged } from '@/components/ibercs/user/auth_state';
-import { User_Authenticated } from '@/entities/dto_login';
-import AuthState from '@/components/ibercs/user/auth_state';
+import { ItsAlreadyLogged } from '@/components/ibercs/user/user_state';
+import { User_Auth } from '@/entities/user';
+import UserState from '@/components/ibercs/user/user_state';
 
 const mode = useColorMode()
-const auth = ref<User_Authenticated | undefined>(undefined)
+const auth = ref<User_Auth | undefined>(undefined)
 
 onBeforeMount(async () => {
     ItsAlreadyLogged()
 });
 
 watchEffect(() => {
-    auth.value = AuthState
+    auth.value = UserState
 })
 </script>
 
