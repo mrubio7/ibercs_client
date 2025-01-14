@@ -28,7 +28,7 @@ const props = defineProps({
                         <span class="font-semibold text-slate-400 dark:text-slate-700">{{ new Date(props.news.CreatedAt).toLocaleDateString() }}</span>
                     </div>
                     <span v-if="!props.preview" class="text-xl -my-0 font-semibold text-nowrap text-ellipsis truncate">{{props.news.Title}}</span>
-                    <span v-else class="text-lg -ml-2 -my-0 font-semibold text-nowrap text-ellipsis truncate">{{props.news.Title}}</span>
+                    <span v-else class="text-md -ml-2 w-80 -my-0 font-semibold text-nowrap text-ellipsis truncate">{{props.news.Title}}</span>
                     <div v-if="!props.preview" class="flex flex-col">
                         <span class="text-xs text-slate-500 textWrap pr-8 -mt-1">
                             {{ props.news.Content }}
