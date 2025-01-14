@@ -9,3 +9,13 @@ export interface News {
     UpdatedAt   :string
     CreatedBy   :Basic_User
 }
+
+export const INITIAL_News:News = {
+    Content: "",
+    CreatedBy:{Username:"",FaceitId:"",Profile:{Description:"",Kick:"",Instagram:"",SteamURL:"",Twitch:"",Twitter:""}},
+    Id:0,
+    Image:"",
+    CreatedAt:"",
+    Title:"",
+    UpdatedAt:""
+}

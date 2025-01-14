@@ -48,7 +48,7 @@ watchEffect(() => {
         </RouterLink>
     </div>
     <div v-if="loading" class="flex flex-col gap-2 ">
-        <Skeleton v-for="_ in newsNumber" class="w-full h-28 rounded" />
+        <Skeleton v-for="_ in newsNumber" class="w-full rounded" :class="`${props.preview ? 'h-12': 'h-28'}`" />
     </div>
     <div v-else>
         <div v-if="newsList.length > 0" class="flex flex-col">

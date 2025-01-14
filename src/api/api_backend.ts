@@ -1,7 +1,7 @@
 import { Player } from "@/entities/players"
 import { DELETE, GET, POST, PUT } from "@/libs/fetchs"
 import { Token } from "@/entities/Token"
-import { DTO_AuthFaceitCallback, DTO_CreateNews, DTO_UpdateUser } from "./dto/request"
+import { DTO_AuthFaceitCallback, DTO_CreateNews, DTO_UpdateNews, DTO_UpdateUser } from "./dto/request"
 import { BuildPayload } from "@/libs/payload"
 
 const getHost = (): string => {
@@ -68,6 +68,12 @@ export const ApiBackend = {
             const payload = BuildPayload("json", news)
             const endpoint = `${getHost()}/news`;
             const res = await POST(endpoint, true, payload)
+            return res
+        },
+        Update: async (news:DTO_UpdateNews) => {
+            const payload = BuildPayload("json", news)
+            const endpoint = `${getHost()}/news`;
+            const res = await PUT(endpoint, true, payload)
             return res
         }
     }
