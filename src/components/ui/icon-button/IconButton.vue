@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue/dist/iconify.js';
-import { onMounted, ref } from 'vue';
+import { watchEffect } from 'vue';
 
 
 const props = defineProps({
@@ -24,7 +24,7 @@ const props = defineProps({
 
 var size = "1.2rem";
 
-onMounted(() => {
+watchEffect(() => {
     switch (props.size!) {
         case "sm":
             size = "0.85rem";
