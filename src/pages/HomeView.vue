@@ -5,9 +5,9 @@ import NewsList from '@/components/ibercs/news/components/NewsList.vue';
 </script>
 
 <template>
-	<div class="grid grid-cols-3">
+	<div class="grid grid-cols-2">
 		<div class="col-span-2">
-			<NewsList />
+			<NewsList :preview="true" />
 		</div>
 		<div>
 

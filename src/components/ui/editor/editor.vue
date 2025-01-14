@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { QuillEditor } from '@vueup/vue-quill';
-import { defineComponent, ref, watchEffect } from 'vue';
+import { useVModel } from '@vueuse/core';
+import { defineComponent, PropType, ref, watchEffect } from 'vue';
 
 const props = defineProps({
     toolbar: {
         required: true,
         type: Boolean
     },
-    value: {
+    modelValue: {
         type: String,
         default: ''
     }
@@ -15,24 +16,34 @@ const props = defineProps({
 
 const borderRadius = ref<number>(0)
 const toolbarDisplay = ref<string>("block")
-const code = ref()
+const value = ref()
 
 watchEffect(() => {
     if (!props.toolbar) {
         borderRadius.value = 5
         toolbarDisplay.value = "none"
     }
-    code.value = props.value
-    debugger
+    value.value = props.modelValue
 })
+
+const emits = defineEmits<{
+  (e: 'update:modelValue', payload: string): void
+}>()
+
+const modelValue = useVModel(props, 'modelValue', emits)
+
+const handleUpdate = (val:string) => {
+    modelValue.value = val
+}
 
 </script>
 
 <template>
     <div>
         <QuillEditor
-            contentType="text"
-            :content="code"
+            contentType="html"
+            :content="value"
+            @update:content="(val) => handleUpdate(val)"
             :read-only="!props.toolbar"
             theme="snow"
             toolbar="full"
