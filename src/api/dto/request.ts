@@ -26,3 +26,16 @@ export interface DTO_UpdateNews {
 	Image:string
 	Content:string
 }
+
+export interface DTO_UpdateRole {
+	FaceitId:string
+	RoleName:string
+	Create:boolean
+	Update:boolean
+	Delete:boolean
+}
+
+export interface DTO_UpdatePublishNews {
+	Id:number
+	Publish:boolean
+}

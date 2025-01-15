@@ -11,6 +11,7 @@ import UserState from '../../user/user_state';
 import { RouterLink } from 'vue-router';
 import { PathRoutes } from '@/router';
 import Icon from '@/components/ui/icon/Icon.vue';
+import ApiPermissions from '@/api/api_permissions';
 
 const props = defineProps({
     preview: {
@@ -44,7 +45,7 @@ watchEffect(() => {
 <template>
     <div class="flex justify-between items-center">
         <Title :text="props.preview ? 'Últimas noticias' : 'Noticias'" />
-        <RouterLink :to="PathRoutes.CreateNews" v-if="user?.Roles.SuperAdmin || user?.Roles.News.Create">
+        <RouterLink :to="PathRoutes.CreateNews" v-if="ApiPermissions.News.Create">
             <Button size="sm" variant="secondary">Crear noticia</Button>
         </RouterLink>
     </div>

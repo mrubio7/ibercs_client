@@ -5,17 +5,19 @@ export interface News {
     Title       :string
     Image       :string
     Content     :string
+    Publish     :boolean
     CreatedAt   :string
     UpdatedAt   :string
     CreatedBy   :Basic_User
 }
 
 export const INITIAL_News:News = {
-    Content: "",
-    CreatedBy:{Username:"",FaceitId:"",Profile:{Description:"",Kick:"",Instagram:"",SteamURL:"",Twitch:"",Twitter:""}},
     Id:0,
-    Image:"",
-    CreatedAt:"",
     Title:"",
-    UpdatedAt:""
+    Image:"",
+    Content: "",
+    Publish: false,
+    CreatedAt:"",
+    UpdatedAt:"",
+    CreatedBy:{Username:"",FaceitId:"",Profile:{Description:"",Kick:"",Instagram:"",SteamURL:"",Twitch:"",Twitter:""}}
 }
