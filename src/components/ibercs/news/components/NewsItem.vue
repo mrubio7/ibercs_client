@@ -44,13 +44,13 @@ const setEditMode = () => {
 }
 
 const saving = ref<boolean>(false)
-const handlerSave = async () => {
-    saving.value = true
-    if (props.handler) {
-        await props.handler(props.news, false)
-        saving.value = false
-    }
-}
+// const handlerSave = async () => {
+//     saving.value = true
+//     if (props.handler) {
+//         await props.handler(props.news, false)
+//         saving.value = false
+//     }
+// }
 const handlerSaveAndPublish = async () => {
     saving.value = true
     if (props.handler) {
