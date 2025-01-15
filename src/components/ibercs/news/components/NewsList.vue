@@ -6,7 +6,7 @@ import { News } from '@/entities/news';
 import Skeleton from '@/components/ui/skeleton/Skeleton.vue';
 import Title from '@/components/ui/title/Title.vue';
 import Button from '@/components/ui/button/Button.vue';
-import { User, User_Auth } from '@/entities/user';
+import { User_Auth } from '@/entities/user';
 import UserState from '../../user/user_state';
 import { RouterLink } from 'vue-router';
 import { PathRoutes } from '@/router';

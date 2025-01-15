@@ -7,7 +7,6 @@ import NotFoundView from './pages/NotFoundView.vue'
 import MyProfileView from './pages/MyProfileView.vue'
 import NewsView from './pages/NewsView.vue'
 import CreateNewsView from './pages/CreateNewsView.vue'
-import component from '@/components/ui/spinner/Spinner.vue'
 import NewsAllView from './pages/NewsAllView.vue'
 
 export const PathRoutes = {

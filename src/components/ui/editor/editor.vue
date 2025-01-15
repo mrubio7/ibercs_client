@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QuillEditor } from '@vueup/vue-quill';
 import { useVModel } from '@vueuse/core';
-import { defineComponent, PropType, ref, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 const props = defineProps({
     toolbar: {
