@@ -1,7 +1,7 @@
 import { Player } from "@/entities/players"
 import { DELETE, GET, POST, PUT } from "@/libs/fetchs"
 import { Token } from "@/entities/Token"
-import { DTO_AuthFaceitCallback, DTO_UpdateUser } from "./dto/request"
+import { DTO_AuthFaceitCallback, DTO_CreateNews, DTO_UpdateNews, DTO_UpdateUser } from "./dto/request"
 import { BuildPayload } from "@/libs/payload"
 
 const getHost = (): string => {
@@ -51,6 +51,35 @@ export const ApiBackend = {
         Update: async (faceitId:string) => {
             const endpoint = `${getHost()}/player?faceitId=${faceitId}`;
             const res = await PUT(endpoint, true, null)
+            return res
+        }
+    },
+    News: {
+        GetLatestNews: async (max:number) => {
+            const endpoint = `${getHost()}/latest-news?max=${max}`;
+            const res = await GET(endpoint, false)
+            return res
+        },
+        GetNewsById: async (id:number) => {
+            const endpoint = `${getHost()}/news?id=${id}`;
+            const res = await GET(endpoint, false)
+            return res
+        },
+        Create: async (news:DTO_CreateNews) => {
+            const payload = BuildPayload("json", news)
+            const endpoint = `${getHost()}/news`;
+            const res = await POST(endpoint, true, payload)
+            return res
+        },
+        Update: async (news:DTO_UpdateNews) => {
+            const payload = BuildPayload("json", news)
+            const endpoint = `${getHost()}/news`;
+            const res = await PUT(endpoint, true, payload)
+            return res
+        },
+        Delete: async (id:number) => {
+            const endpoint = `${getHost()}/news?id=${id}`;
+            const res = await DELETE(endpoint, true, null)
             return res
         }
     }

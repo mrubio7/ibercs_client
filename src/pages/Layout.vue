@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger, NavigationMenuLink, NavigationMenuContent, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu'
-import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarShortcut, MenubarTrigger, MenubarSub } from '@/components/ui/menubar'
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarShortcut, MenubarTrigger, MenubarSub, MenubarLabel } from '@/components/ui/menubar'
 import { useColorMode } from '@vueuse/core'
 import { Icon } from '@iconify/vue'
 import { PathRoutes } from '@/router';
@@ -53,6 +53,13 @@ watchEffect(() => {
                                 </RouterLink>
                             </MenubarContent>
                         </MenubarMenu>
+
+                        <RouterLink :to="PathRoutes.NewsHome">
+                            <MenubarLabel class="cursor-pointer rounded dark:hover:bg-slate-800 hover:bg-slate-200 transition p-2 px-4">
+                                Noticias
+                            </MenubarLabel>
+                        </RouterLink>
+                        
     
                     </Menubar>
                 </div>
@@ -80,7 +87,6 @@ watchEffect(() => {
                                     
                                     </MenubarSubContent>
                                 </MenubarSub>
-                               
                             </MenubarContent>
                         </MenubarMenu>
                     </Menubar>

@@ -12,3 +12,17 @@ export interface DTO_UpdateUser {
 	Kick:string
 	Description:string
 }
+
+export interface DTO_CreateNews {
+	Title:string
+	Image:string
+	Content:string
+	Publish:boolean
+}
+
+export interface DTO_UpdateNews {
+	Id:number
+	Title:string
+	Image:string
+	Content:string
+}
