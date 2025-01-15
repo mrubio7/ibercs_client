@@ -45,13 +45,13 @@ const setEditMode = () => {
 }
 
 const saving = ref<boolean>(false)
-// const handlerSave = async () => {
-//     saving.value = true
-//     if (props.handler) {
-//         await props.handler(props.news, false)
-//         saving.value = false
-//     }
-// }
+const handlerSave = async () => {
+    saving.value = true
+    if (props.handler) {
+        await props.handler(props.news, false)
+        saving.value = false
+    }
+}
 const handlerSaveAndPublish = async () => {
     saving.value = true
     if (props.handler) {
@@ -82,8 +82,7 @@ const handlerDelete = async (id: number) => {
 
 const tempImage = ref<string>("")
 watchEffect(() => {
-    if (props.news.Image == "" && tempImage.value != "") {
-        //Load image when edit
+    if (tempImage.value != "") {
         props.news.Image = tempImage.value
     }
     if (props.news.Image != "" && tempImage.value == "") {
@@ -95,7 +94,7 @@ watchEffect(() => {
 <template>
     <div class="flex">
         <img v-if="!editMode" class="w-60 rounded aspect-auto image" :src="props.news.Image" :style="'mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 70%); -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 70%); mask-size: 100% 100%; mask-repeat: no-repeat;'"></img>
-        <img v-if="editMode" class="w-60 rounded aspect-auto image" :src="props.news.Image" :style="'mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 70%); -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 70%); mask-size: 100% 100%; mask-repeat: no-repeat;'"></img>
+        <img v-if="editMode" class="w-60 rounded aspect-auto image" :src="tempImage" :style="'mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 70%); -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,0) 70%); mask-size: 100% 100%; mask-repeat: no-repeat;'"></img>
         <div class="flex flex-col w-full">
             <div v-if="editMode"  class="flex flex-col gap-2 w-full pl-2">
                 <Input v-model="tempImage" placeholder="Link de la imagen" class="w-full" />
@@ -143,10 +142,10 @@ watchEffect(() => {
         <Editor v-if="editMode" v-model="props.news.Content" :toolbar="true" />
     </div>
     <div v-if="props.handler && props.news.Id == 0" class="flex justify-end mt-2 gap-2">
-        <!-- <Button variant="outline" @click="handlerSave" :disabled="saving">
+        <Button variant="outline" @click="handlerSave" :disabled="saving">
             <ReloadIcon v-if="saving" class="w-4 h-4 mr-2 animate-spin" />
             Guardar
-        </Button> -->
+        </Button>
         <Button variant="secondary" @click="handlerSaveAndPublish" :disabled="saving">
             <ReloadIcon v-if="saving" class="w-4 h-4 mr-2 animate-spin" />
             Guardar y Publicar

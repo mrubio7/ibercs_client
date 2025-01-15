@@ -12,6 +12,6 @@ const props = defineProps({
 <template>
     <div class="flex justify-center items-center gap-2" :class="props.horizontal ? 'flex-row-reverse gap-4' : 'flex-col'">
         <span class="text-lg font-semibold text-slate-500">Cargando...</span>
-        <Spinner />
+        <Spinner class="scale-75" />
     </div>
 </template>

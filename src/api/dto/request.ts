@@ -34,3 +34,8 @@ export interface DTO_UpdateRole {
 	Update:boolean
 	Delete:boolean
 }
+
+export interface DTO_UpdatePublishNews {
+	Id:number
+	Publish:boolean
+}
