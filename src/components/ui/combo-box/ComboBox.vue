@@ -4,7 +4,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { cn } from '@/libs/utils'
 import { Check, ChevronsUpDown } from 'lucide-vue-next'
-import { onMounted, PropType, ref, watchEffect } from 'vue'
+import { PropType, ref, watchEffect } from 'vue'
 
 const props = defineProps({
     options: {
