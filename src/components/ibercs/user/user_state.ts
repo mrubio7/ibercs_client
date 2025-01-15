@@ -37,7 +37,6 @@ export const AuthenticateFromFaceit = async (code:string): Promise<boolean> => {
     }
     const userData = res.data as User_Auth_WithToken
     setUserAuthenticated(userData)
-    setRoles(userData.Roles)
     return true
 }
 
