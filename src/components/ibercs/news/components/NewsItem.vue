@@ -17,7 +17,7 @@ import AlertDialogCancel from '@/components/ui/alert-dialog/AlertDialogCancel.vu
 import AlertDialogAction from '@/components/ui/alert-dialog/AlertDialogAction.vue';
 import { ApiBackend } from '@/api/api_backend';
 import router, { PathRoutes } from '@/router';
-import UserState from '../../user/user_state';
+import ApiPermissions from '@/api/api_permissions';
 
 const props = defineProps({
     news: {
@@ -108,10 +108,10 @@ watchEffect(() => {
                     <IconButton v-if="props.news.CreatedBy.Profile.Instagram != ''" size="sm" icon="mdi:instagram" :url="`https://x.com/${props.news.CreatedBy.Profile.Instagram}`" />
                 </div>
                 <span  class="font-semibold text-slate-400 dark:text-slate-700">{{ new Date(news!.CreatedAt).toLocaleDateString() }}</span>
-                <Button v-if="UserState.Roles.SuperAdmin || UserState.Roles.News.Update" @click="setEditMode" variant="outline" size="sm">Editar</Button>
+                <Button v-if="ApiPermissions.News.Update" @click="setEditMode" variant="outline" size="sm">Editar</Button>
                 <AlertDialog>
                     <AlertDialogTrigger>
-                        <Button v-if="UserState.Roles.SuperAdmin || UserState.Roles.News.Delete" variant="destructive" size="sm" :disabled="deleting">
+                        <Button v-if="ApiPermissions.News.Delete" variant="destructive" size="sm" :disabled="deleting">
                             <ReloadIcon v-if="deleting" class="w-4 h-4 mr-2 animate-spin" />
                             Eliminar
                         </Button>
