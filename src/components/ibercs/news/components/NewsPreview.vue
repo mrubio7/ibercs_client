@@ -28,7 +28,7 @@ const convertToText = (html:string):string => {
                 <img class="relative image" :src="props.news.Image" 
                     :style="'mask-image: linear-gradient(to right, #000 -20%, rgba(0,0,0,0) 90%); -webkit-mask-image: linear-gradient(to right, #000 -20%, rgba(0,0,0,0) 90%); mask-size: 100% 100%; mask-repeat: no-repeat;'"
                 ></img>
-                <div class="flex flex-col justify-center gap-2">
+                <div class="flex flex-col justify-center gap-2 w-11/12">
                     <div v-if="!props.preview" class="text-xs flex items-center gap-2 -mb-1 -mt-2">
                         <span class="font-semibold text-slate-500 dark:text-slate-500">{{ props.news.CreatedBy.Username }}</span>
                         <span class="font-semibold text-slate-400 dark:text-slate-700">{{ new Date(props.news.CreatedAt).toLocaleDateString() }}</span>
