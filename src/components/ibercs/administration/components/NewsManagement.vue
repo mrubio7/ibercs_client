@@ -18,7 +18,7 @@ const loading = ref<Boolean>(true)
 const newsList = ref<News[]>()
 
 watchEffect(async () => {
-    if (ApiPermissions.SuperAdmin) {
+    if (ApiPermissions.SuperAdmin.value) {
         const res = await ApiBackend.Admin.GetAllNews()
         if (res.ok) {
             loading.value = false

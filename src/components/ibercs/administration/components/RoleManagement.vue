@@ -16,7 +16,7 @@ const roleOpts = Object.keys(ApiPermissions).filter(k => k !== "SuperAdmin").map
 const users = ref<User_Auth[]>()
 
 watchEffect(async () => {
-    if (ApiPermissions.SuperAdmin) {
+    if (ApiPermissions.SuperAdmin.value) {
         const res = await ApiBackend.Admin.GetUsersWithRoles()
         if (res.ok) {
             loading.value = false

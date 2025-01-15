@@ -45,7 +45,7 @@ watchEffect(() => {
 <template>
     <div class="flex justify-between items-center">
         <Title :text="props.preview ? 'Últimas noticias' : 'Noticias'" />
-        <RouterLink :to="PathRoutes.CreateNews" v-if="ApiPermissions.News.Create">
+        <RouterLink :to="PathRoutes.CreateNews" v-if="ApiPermissions.News.Create.value">
             <Button size="sm" variant="secondary">Crear noticia</Button>
         </RouterLink>
     </div>

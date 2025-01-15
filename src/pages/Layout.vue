@@ -121,7 +121,7 @@ watchEffect(() => {
                                         <RouterLink :to="PathRoutes.MyProfile">
                                             <NavigationMenuLink class="block p-2 text-sm dark:text-slate-400 hover:dark:bg-slate-800 rounded transition cursor-pointer">Mi perfil</NavigationMenuLink>
                                         </RouterLink>
-                                        <RouterLink v-if="ApiPermissions.SuperAdmin" :to="PathRoutes.Administration">
+                                        <RouterLink v-if="ApiPermissions.SuperAdmin.value" :to="PathRoutes.Administration">
                                             <NavigationMenuLink class="block p-2 text-sm dark:text-slate-400 hover:dark:bg-slate-800 rounded transition cursor-pointer">Administración</NavigationMenuLink>
                                         </RouterLink>
                                         <NavigationMenuLink @click="Logout" class="block p-2 text-sm dark:text-slate-400 hover:dark:bg-slate-800 rounded transition cursor-pointer">Desconectar</NavigationMenuLink>
