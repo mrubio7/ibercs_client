@@ -6,17 +6,13 @@ import { AuthenticateFromFaceit } from '@/components/ibercs/user/user_state'
 
 document.title = "IBERCS - Inicio de sesión"
 
+
 onMounted(async () => {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get('code');
 
   if (code) {
-    const isAuthenticated = await AuthenticateFromFaceit(code)
-    if (isAuthenticated) {
-      console.log("OK")
-    } else {
-      console.log("NO OK")
-    }
+    await AuthenticateFromFaceit(code)
     window.close();
   }
 });

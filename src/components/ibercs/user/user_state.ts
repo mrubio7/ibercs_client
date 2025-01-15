@@ -14,10 +14,15 @@ const UserState = reactive<User_Auth>({
         Kick:"",
         SteamURL:"",
         Twitch:"",
-        Twitter:"",
+        Twitter:""
     },
     Roles: {
-        SuperAdmin: false
+        SuperAdmin: false,
+        News: {
+            Create: false,
+            Delete: false,
+            Update: false
+        }
     },
     Player: undefined
 })
@@ -62,7 +67,12 @@ export const ClearAuthState = () => {
         Twitter:"",
     },
     UserState.Roles = {
-        SuperAdmin: false
+        SuperAdmin: false,
+        News: {
+            Create: false,
+            Delete: false,
+            Update: false
+        }
     }
     ApiLocalStorage.User.Remove()
     ApiLocalStorage.Token.Remove()
@@ -76,7 +86,6 @@ const setUserAuthenticated = (user:User_Auth_WithToken) => {
     UserState.Profile = user.Profile
     UserState.Player = user.Player
     ApiLocalStorage.Token.Save(user.Token)
-    ApiLocalStorage.User.Save(user)
 }
 
 export default UserState

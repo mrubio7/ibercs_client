@@ -11,10 +11,13 @@ export interface User_Auth_WithToken extends User_Auth {
 	Token    :Token
 }
 
-export interface User {                                       
-	FaceitId :string
+export interface User extends Basic_User {                                       
 	Avatar   :string                    
+	Player   :Player|undefined
+}
+
+export interface Basic_User {
+	FaceitId :string
 	Username :string                    
 	Profile  :Profile
-	Player   :Player|undefined
 }
