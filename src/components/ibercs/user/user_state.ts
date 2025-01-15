@@ -6,6 +6,7 @@ import { User_Auth, User_Auth_WithToken } from "@/entities/user";
 import { reactive } from "vue";
 
 const UserState = reactive<User_Auth>({
+    Id: 0,
     FaceitId: "",
 	Username: "",
 	Avatar: "",
@@ -35,8 +36,7 @@ export const AuthenticateFromFaceit = async (code:string): Promise<boolean> => {
         return false
     }
     const userData = res.data as User_Auth_WithToken
-    setUserAuthenticated(userData)
-    setRoles(userData.Roles)
+    ApiLocalStorage.Token.Save(userData.Token)
     return true
 }
 
@@ -88,7 +88,6 @@ const setUserAuthenticated = (user:User_Auth_WithToken) => {
     UserState.Roles = user.Roles
     UserState.Profile = user.Profile
     UserState.Player = user.Player
-    ApiLocalStorage.Token.Save(user.Token)
 }
 
 export default UserState
