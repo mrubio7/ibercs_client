@@ -9,7 +9,7 @@ import { watchEffect } from 'vue';
 document.title = "IBERCS - Administración"
 
 watchEffect(() => {
-    if (!ApiPermissions.SuperAdmin) {
+    if (!ApiPermissions.SuperAdmin.value) {
         router.push("/");
     }
 })
