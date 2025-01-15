@@ -6,6 +6,7 @@ import { User_Auth, User_Auth_WithToken } from "@/entities/user";
 import { reactive } from "vue";
 
 const UserState = reactive<User_Auth>({
+    Id: 0,
     FaceitId: "",
 	Username: "",
 	Avatar: "",
