@@ -1,5 +1,6 @@
 import { ApiBackend } from "@/api/api_backend";
 import ApiLocalStorage from "@/api/api_localstorage";
+import { setRoles } from "@/api/api_permissions";
 import { DTO_AuthFaceitCallback } from "@/api/dto/request";
 import { User_Auth, User_Auth_WithToken } from "@/entities/user";
 import { reactive } from "vue";
@@ -35,6 +36,7 @@ export const AuthenticateFromFaceit = async (code:string): Promise<boolean> => {
     }
     const userData = res.data as User_Auth_WithToken
     setUserAuthenticated(userData)
+    setRoles(userData.Roles)
     return true
 }
 
@@ -52,6 +54,7 @@ export const ItsAlreadyLogged = async () => {
     }
     const userData = res.data as User_Auth_WithToken
     setUserAuthenticated(userData)
+    setRoles(userData.Roles)
 }
 
 export const ClearAuthState = () => {

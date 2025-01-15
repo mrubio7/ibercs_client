@@ -1,7 +1,7 @@
 import { Player } from "@/entities/players"
 import { DELETE, GET, POST, PUT } from "@/libs/fetchs"
 import { Token } from "@/entities/Token"
-import { DTO_AuthFaceitCallback, DTO_CreateNews, DTO_UpdateNews, DTO_UpdateUser } from "./dto/request"
+import { DTO_AuthFaceitCallback, DTO_CreateNews, DTO_UpdateNews, DTO_UpdatePublishNews, DTO_UpdateRole, DTO_UpdateUser } from "./dto/request"
 import { BuildPayload } from "@/libs/payload"
 
 const getHost = (): string => {
@@ -79,6 +79,30 @@ export const ApiBackend = {
         Delete: async (id:number) => {
             const endpoint = `${getHost()}/news?id=${id}`;
             const res = await DELETE(endpoint, true, null)
+            return res
+        }
+    },
+    Admin: {
+        GetUsersWithRoles: async () => {
+            const endpoint = `${getHost()}/admin/users`;
+            const res = await GET(endpoint, true)
+            return res
+        },
+        UpdateRole: async (dto:DTO_UpdateRole) => {
+            const payload = BuildPayload("json", dto)
+            const endpoint = `${getHost()}/admin/role`;
+            const res = await PUT(endpoint, true, payload)
+            return res
+        },
+        GetAllNews: async () => {
+            const endpoint = `${getHost()}/admin/news`;
+            const res = await GET(endpoint, true)
+            return res
+        },
+        UpdatePublishNews: async (dto:DTO_UpdatePublishNews) => {
+            const payload = BuildPayload("json", dto)
+            const endpoint = `${getHost()}/admin/news`;
+            const res = await PUT(endpoint, true, payload)
             return res
         }
     }

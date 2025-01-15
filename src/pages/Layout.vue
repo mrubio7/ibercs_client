@@ -14,6 +14,7 @@ import Button from '@/components/ui/button/Button.vue';
 import { ItsAlreadyLogged } from '@/components/ibercs/user/user_state';
 import { User_Auth } from '@/entities/user';
 import UserState from '@/components/ibercs/user/user_state';
+import ApiPermissions from '@/api/api_permissions';
 
 const mode = useColorMode()
 const auth = ref<User_Auth | undefined>(undefined)
@@ -59,7 +60,6 @@ watchEffect(() => {
                                 Noticias
                             </MenubarLabel>
                         </RouterLink>
-                        
     
                     </Menubar>
                 </div>
@@ -84,9 +84,13 @@ watchEffect(() => {
                                         <RouterLink :to="PathRoutes.Ladder_Players">
                                             <MenubarItem class="cursor-pointer">Clasificación</MenubarItem>
                                         </RouterLink>
-                                    
                                     </MenubarSubContent>
                                 </MenubarSub>
+                                <RouterLink :to="PathRoutes.NewsHome">
+                                    <MenubarSub>
+                                    <MenubarItem>Noticias</MenubarItem>
+                                </MenubarSub>
+                                </RouterLink>
                             </MenubarContent>
                         </MenubarMenu>
                     </Menubar>
@@ -116,6 +120,9 @@ watchEffect(() => {
                                     <div class="p-1 pb-1.5 pr-1.5">
                                         <RouterLink :to="PathRoutes.MyProfile">
                                             <NavigationMenuLink class="block p-2 text-sm dark:text-slate-400 hover:dark:bg-slate-800 rounded transition cursor-pointer">Mi perfil</NavigationMenuLink>
+                                        </RouterLink>
+                                        <RouterLink v-if="ApiPermissions.SuperAdmin" :to="PathRoutes.Administration">
+                                            <NavigationMenuLink class="block p-2 text-sm dark:text-slate-400 hover:dark:bg-slate-800 rounded transition cursor-pointer">Administración</NavigationMenuLink>
                                         </RouterLink>
                                         <NavigationMenuLink @click="Logout" class="block p-2 text-sm dark:text-slate-400 hover:dark:bg-slate-800 rounded transition cursor-pointer">Desconectar</NavigationMenuLink>
                                     </div>
