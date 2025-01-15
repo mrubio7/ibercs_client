@@ -81,5 +81,12 @@ export const ApiBackend = {
             const res = await DELETE(endpoint, true, null)
             return res
         }
+    },
+    Admin: {
+        GetUsersWithRoles: async () => {
+            const endpoint = `${getHost()}/admin/users`;
+            const res = await GET(endpoint, true)
+            return res
+        }
     }
 }

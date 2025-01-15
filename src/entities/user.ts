@@ -4,6 +4,7 @@ import { Roles } from "./roles"
 import { Token } from "./Token"
 
 export interface User_Auth extends User {
+	Id       :number
 	Roles    :Roles
 }
 
