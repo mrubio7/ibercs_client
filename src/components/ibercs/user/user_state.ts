@@ -86,7 +86,6 @@ const setUserAuthenticated = (user:User_Auth_WithToken) => {
     UserState.Profile = user.Profile
     UserState.Player = user.Player
     ApiLocalStorage.Token.Save(user.Token)
-    ApiLocalStorage.User.Save(user)
 }
 
 export default UserState

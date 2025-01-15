@@ -75,6 +75,11 @@ export const ApiBackend = {
             const endpoint = `${getHost()}/news`;
             const res = await PUT(endpoint, true, payload)
             return res
+        },
+        Delete: async (id:number) => {
+            const endpoint = `${getHost()}/news?id=${id}`;
+            const res = await DELETE(endpoint, true, null)
+            return res
         }
     }
 }

@@ -4,8 +4,19 @@ import Editor from '@/components/ui/editor/editor.vue';
 import IconButton from '@/components/ui/icon-button/IconButton.vue';
 import Input from '@/components/ui/input/Input.vue';
 import { News } from '@/entities/news';
-import { onMounted, PropType, ref, watchEffect } from 'vue';
+import { PropType, ref, watchEffect } from 'vue';
 import { ReloadIcon } from '@radix-icons/vue'
+import AlertDialog from '@/components/ui/alert-dialog/AlertDialog.vue';
+import AlertDialogTrigger from '@/components/ui/alert-dialog/AlertDialogTrigger.vue';
+import AlertDialogContent from '@/components/ui/alert-dialog/AlertDialogContent.vue';
+import AlertDialogHeader from '@/components/ui/alert-dialog/AlertDialogHeader.vue';
+import AlertDialogTitle from '@/components/ui/alert-dialog/AlertDialogTitle.vue';
+import AlertDialogDescription from '@/components/ui/alert-dialog/AlertDialogDescription.vue';
+import AlertDialogFooter from '@/components/ui/alert-dialog/AlertDialogFooter.vue';
+import AlertDialogCancel from '@/components/ui/alert-dialog/AlertDialogCancel.vue';
+import AlertDialogAction from '@/components/ui/alert-dialog/AlertDialogAction.vue';
+import { ApiBackend } from '@/api/api_backend';
+import router, { PathRoutes } from '@/router';
 
 const props = defineProps({
     news: {
@@ -23,10 +34,6 @@ const props = defineProps({
 })
 
 const editMode = ref<boolean>(false)
-
-onMounted(() => {
-    console.log(props.news)
-})
 
 watchEffect(() => {
     editMode.value = props.editor;
@@ -62,6 +69,15 @@ const handlerUpdate = async (news: News, publish:boolean) => {
     }
 }
 
+const deleting = ref<boolean>(false)
+const handlerDelete = async (id: number) => {
+    deleting.value = true
+    const res = await ApiBackend.News.Delete(id)
+    if (res.ok) {
+        router.push(PathRoutes.NewsHome)
+    }
+}
+
 const tempImage = ref<string>("")
 watchEffect(() => {
     if (props.news.Image == "") {
@@ -87,6 +103,30 @@ watchEffect(() => {
                 </div>
                 <span  class="font-semibold text-slate-400 dark:text-slate-700">{{ new Date(news!.CreatedAt).toLocaleDateString() }}</span>
                 <Button @click="setEditMode" variant="outline" size="sm">Editar</Button>
+                <AlertDialog>
+                    <AlertDialogTrigger>
+                        <Button variant="destructive" size="sm" :disabled="deleting">
+                            <ReloadIcon v-if="deleting" class="w-4 h-4 mr-2 animate-spin" />
+                            Eliminar
+                        </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>¿Eliminar noticia?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                <div class="flex flex-col gap-2">
+                                    <span>Estás a punto de eliminar la noticia:</span>
+                                    <span>{{news.Title}}</span>
+                                </div>
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Atras</AlertDialogCancel>
+                            <AlertDialogAction @click="handlerDelete(news.Id)">Eliminar</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+                
             </div>
             <span v-if="!editMode"  class="font-semibold text-2xl text-slate-800 dark:text-slate-200 w-full pl-4 mt-4">{{ props.news.Title }}</span>
         </div>
