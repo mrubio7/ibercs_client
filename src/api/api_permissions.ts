@@ -11,6 +11,7 @@ const roles = reactive<Roles>({
 })
 
 const ApiPermissions = {
+    SuperAdmin: computed(() => roles.SuperAdmin),
     News: {
         Create: computed(() => roles.SuperAdmin || roles.News.Create),
         Update: computed(() => roles.SuperAdmin || roles.News.Update),
