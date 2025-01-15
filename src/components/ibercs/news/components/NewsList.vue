@@ -10,6 +10,7 @@ import { User, User_Auth } from '@/entities/user';
 import UserState from '../../user/user_state';
 import { RouterLink } from 'vue-router';
 import { PathRoutes } from '@/router';
+import Icon from '@/components/ui/icon/Icon.vue';
 
 const props = defineProps({
     preview: {
@@ -51,9 +52,15 @@ watchEffect(() => {
         <Skeleton v-for="_ in newsNumber" class="w-full rounded" :class="`${props.preview ? 'h-12': 'h-28'}`" />
     </div>
     <div v-else>
-        <div v-if="newsList.length > 0" class="flex flex-col">
+        <div v-if="newsList?.length > 0" class="flex flex-col">
             <div class="flex flex-col gap-2">
                 <NewsPreview :preview="props.preview" v-for="n in newsList" :news="n" />
+            </div>
+        </div>
+        <div v-else>
+            <div class="flex flex-col jusify-center items-center py-10">
+                <Icon icon="famicons:newspaper" class="scale-150 pb-2" />
+                <span class="text-center w-full text-lg font-bold dark:text-slate-700 text-slate-200">No hay noticias</span>
             </div>
         </div>
     </div>
