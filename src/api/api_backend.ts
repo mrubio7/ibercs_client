@@ -47,6 +47,11 @@ export const ApiBackend = {
             const res = await GET(endpoint, false)
             return res.data as Player[]
         },
+        GetTopEloPlayers: async (limit:number) => {
+            const endpoint = `${getHost()}/players/top?limit=${limit}`;
+            const res = await GET(endpoint, false)
+            return res
+        },
         Update: async (faceitId:string) => {
             const endpoint = `${getHost()}/player?faceitId=${faceitId}`;
             const res = await PUT(endpoint, true, null)
