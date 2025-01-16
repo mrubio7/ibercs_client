@@ -8,6 +8,17 @@ export interface User_Auth extends User {
 	Roles    :Roles
 }
 
+export const INITIAL_USER_AUTH:User_Auth = {
+	Avatar:"",
+	FaceitId:"",
+	Id:0,
+	Player: {} as Player,
+	Profile: {} as Profile,
+	Roles: {} as Roles,
+	Username: ""
+
+}
+
 export interface User_Auth_WithToken extends User_Auth {
 	Token    :Token
 }

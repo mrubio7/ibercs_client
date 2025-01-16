@@ -3,7 +3,6 @@ import { onMounted, ref, watchEffect } from 'vue';
 import NewsPreview from './NewsPreview.vue';
 import { ApiBackend } from '@/api/api_backend';
 import { News } from '@/entities/news';
-import Skeleton from '@/components/ui/skeleton/Skeleton.vue';
 import Title from '@/components/ui/title/Title.vue';
 import Button from '@/components/ui/button/Button.vue';
 import { User_Auth } from '@/entities/user';
@@ -12,6 +11,7 @@ import { RouterLink } from 'vue-router';
 import { PathRoutes } from '@/router';
 import Icon from '@/components/ui/icon/Icon.vue';
 import ApiPermissions from '@/api/api_permissions';
+import Loader from '@/components/ui/loader/Loader.vue';
 
 const props = defineProps({
     preview: {
@@ -45,12 +45,13 @@ watchEffect(() => {
 <template>
     <div class="flex justify-between items-center">
         <Title :text="props.preview ? 'Últimas noticias' : 'Noticias'" />
-        <RouterLink :to="PathRoutes.CreateNews" v-if="ApiPermissions.News.Create.value">
+        <RouterLink :to="PathRoutes.CreateNews" v-if="ApiPermissions.News.Create.value && !props.preview">
             <Button size="sm" variant="secondary">Crear noticia</Button>
         </RouterLink>
     </div>
-    <div v-if="loading" class="flex flex-col gap-2 ">
-        <Skeleton v-for="_ in newsNumber" class="w-full rounded" :class="`${props.preview ? 'h-12': 'h-28'}`" />
+    <div v-if="loading" class="flex flex-col gap-2 p-4">
+        <Loader />
+        <!-- <Skeleton v-for="_ in newsNumber" class="w-full rounded" :class="`${props.preview ? 'h-12': 'h-28'}`" /> -->
     </div>
     <div v-else>
         <div v-if="newsList?.length > 0" class="flex flex-col">

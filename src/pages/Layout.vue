@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger, NavigationMenuLink, NavigationMenuContent, navigationMenuTriggerStyle } from '@/components/ui/navigation-menu'
-import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarShortcut, MenubarTrigger, MenubarSub, MenubarLabel } from '@/components/ui/menubar'
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarShortcut, MenubarTrigger, MenubarSub, MenubarLabel, MenubarSeparator } from '@/components/ui/menubar'
 import { useColorMode } from '@vueuse/core'
 import { Icon } from '@iconify/vue'
 import { PathRoutes } from '@/router';
@@ -50,6 +50,12 @@ watchEffect(() => {
                                 <RouterLink :to="PathRoutes.Ladder_Players">
                                     <MenubarItem class="cursor-pointer">
                                         Clasificación
+                                    </MenubarItem>
+                                </RouterLink>
+                                <MenubarSeparator />
+                                <RouterLink :to="PathRoutes.FreeAgents">
+                                    <MenubarItem class="cursor-pointer">
+                                        Jugadores libres
                                     </MenubarItem>
                                 </RouterLink>
                             </MenubarContent>

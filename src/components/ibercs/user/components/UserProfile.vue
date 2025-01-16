@@ -92,8 +92,9 @@ const handleUpdateUser = async () => {
                     <div class="w-full">
                         <Textarea :disabled="!editMode" v-model="payload.Description" placeholder="Bio" class="bg-slate-900"></Textarea>
                     </div>
-                    <div v-if="editMode" class="flex justify-end items-end">
-                        <Button @click="handleUpdateUser">Guardar</Button>
+                    <div v-if="editMode" class="flex justify-end items-end gap-2">
+                        <Button size="sm" variant="secondary" @click="editMode = false">Cancelar</Button>
+                        <Button size="sm" @click="handleUpdateUser">Guardar</Button>
                     </div>
                 </div>
             </div>

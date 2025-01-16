@@ -1,3 +1,5 @@
+import { FreeAgent } from "./free_agent";
+
 export interface PlayerStats {
 	Id: number;
 	KrRatio: number;
@@ -21,13 +23,6 @@ export interface Player {
 	SteamId?: string | null;
 	FaceitElo: number;
 	Stats: PlayerStats;
+	FreeAgent: FreeAgent;
 }
 
-export interface ProminentPlayer {
-	Id: number;
-	Score: number;
-	Avatar: string;
-	Nickname: string;
-	FaceitId: string;
-	SteamId: string;
-}
