@@ -8,11 +8,21 @@ const roles = reactive<Roles>({
         Delete: false,
         Update: false
     },
+    FreeAgents: {
+        Create: false,
+        Delete: false,
+        Update: false
+    }
 })
 
 const ApiPermissions = {
     SuperAdmin: computed(() => roles.SuperAdmin),
     News: {
+        Create: computed(() => roles.SuperAdmin || roles.News.Create),
+        Update: computed(() => roles.SuperAdmin || roles.News.Update),
+        Delete: computed(() => roles.SuperAdmin || roles.News.Delete),
+    },
+    FreeAgents: {
         Create: computed(() => roles.SuperAdmin || roles.News.Create),
         Update: computed(() => roles.SuperAdmin || roles.News.Update),
         Delete: computed(() => roles.SuperAdmin || roles.News.Delete),

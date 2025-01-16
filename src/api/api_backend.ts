@@ -1,7 +1,7 @@
 import { Player } from "@/entities/players"
 import { DELETE, GET, POST, PUT } from "@/libs/fetchs"
 import { Token } from "@/entities/Token"
-import { DTO_AuthFaceitCallback, DTO_CreateNews, DTO_UpdateNews, DTO_UpdatePublishNews, DTO_UpdateRole, DTO_UpdateUser } from "./dto/request"
+import { DTO_AuthFaceitCallback, DTO_CreateNews, DTO_UpdateFreeAgent, DTO_UpdateNews, DTO_UpdatePublishNews, DTO_UpdateRole, DTO_UpdateUser } from "./dto/request"
 import { BuildPayload } from "@/libs/payload"
 
 const getHost = (): string => {
@@ -55,6 +55,17 @@ export const ApiBackend = {
         Update: async (faceitId:string) => {
             const endpoint = `${getHost()}/player?faceitId=${faceitId}`;
             const res = await PUT(endpoint, true, null)
+            return res
+        },
+        GetFreeAgents: async (limit:number) => {
+            const endpoint = `${getHost()}/player/free-agents?limit=${limit}`;
+            const res = await GET(endpoint, false)
+            return res
+        },
+        UpdateFreeAgent: async (dto:DTO_UpdateFreeAgent) => {
+            const payload = BuildPayload("json", dto)
+            const endpoint = `${getHost()}/player/free-agent`;
+            const res = await PUT(endpoint, true, payload)
             return res
         }
     },
