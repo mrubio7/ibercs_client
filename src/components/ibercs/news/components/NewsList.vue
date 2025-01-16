@@ -3,7 +3,6 @@ import { onMounted, ref, watchEffect } from 'vue';
 import NewsPreview from './NewsPreview.vue';
 import { ApiBackend } from '@/api/api_backend';
 import { News } from '@/entities/news';
-import Skeleton from '@/components/ui/skeleton/Skeleton.vue';
 import Title from '@/components/ui/title/Title.vue';
 import Button from '@/components/ui/button/Button.vue';
 import { User_Auth } from '@/entities/user';

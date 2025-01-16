@@ -1,5 +1,4 @@
-import { FreeAgent } from "./free_agent"
-import { Player, PlayerStats } from "./players"
+import { Player } from "./players"
 import { Profile } from "./profile"
 import { Roles } from "./roles"
 import { Token } from "./Token"
@@ -26,7 +25,7 @@ export interface User_Auth_WithToken extends User_Auth {
 
 export interface User extends Basic_User {                                       
 	Avatar   :string                    
-	Player   :Player
+	Player   :Player|undefined
 }
 
 export interface Basic_User {

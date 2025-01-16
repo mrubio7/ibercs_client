@@ -17,6 +17,9 @@ const props = defineProps({
     },
     editable: {
         type: Boolean
+    },
+    hidePublish: {
+        type: Boolean
     }
 })
 
@@ -34,7 +37,7 @@ const modelValue = useVModel(props, 'modelValue', emits)
                 <div class="pl-4 w-96">
                     <FreeAgent_InGameRolesIcons v-model="modelValue.InGameRoles" :editable="editable" class="lg:px-0 px-4"/>
                 </div>
-                <div class="w-40 flex justify-end items-center gap-4">
+                <div v-if="!hidePublish" class="w-40 flex justify-end items-center gap-4">
                     <label class="text-sm text-slate-500 font-semibold">Publicado</label>
                     <Switch v-model:checked="modelValue.Publish" :disabled="!editable" />
                 </div>
