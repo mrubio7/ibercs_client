@@ -89,6 +89,12 @@ watchEffect(() => {
         tempImage.value = props.news.Image
     }
 })
+
+watchEffect(() => {
+    if (props.news.Title != "") {
+        document.title = "IBERCS - "+ props.news.Title
+    }
+})
 </script>
 
 <template>
