@@ -9,7 +9,7 @@ import Button from '@/components/ui/button/Button.vue';
 import Loader from '@/components/ui/loader/Loader.vue'
 import { useToast } from '@/components/ui/toast';
 import { INITIAL_USER_AUTH, User_Auth } from '@/entities/user';
-import { onMounted, ref, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 const myUser = ref<User_Auth>(INITIAL_USER_AUTH)
 const loader = ref<Boolean>(true)

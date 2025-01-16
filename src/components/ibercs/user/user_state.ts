@@ -24,6 +24,11 @@ const UserState = reactive<User_Auth>({
             Create: false,
             Delete: false,
             Update: false
+        },
+        FreeAgents: {
+            Create: false,
+            Delete: false,
+            Update: false
         }
     },
     Player: undefined
@@ -72,6 +77,11 @@ export const ClearAuthState = () => {
     UserState.Roles = {
         SuperAdmin: false,
         News: {
+            Create: false,
+            Delete: false,
+            Update: false
+        },
+        FreeAgents: {
             Create: false,
             Delete: false,
             Update: false
