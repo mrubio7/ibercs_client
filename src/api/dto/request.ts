@@ -39,3 +39,10 @@ export interface DTO_UpdatePublishNews {
 	Id:number
 	Publish:boolean
 }
+
+export interface DTO_UpdateFreeAgent {
+	FaceitId    :string
+	InGameRoles :string[]
+	Description :string
+	Publish     :boolean
+}

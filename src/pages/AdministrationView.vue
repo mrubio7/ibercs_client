@@ -2,8 +2,9 @@
 import ApiPermissions from '@/api/api_permissions';
 import NewsManagement from '@/components/ibercs/administration/components/NewsManagement.vue';
 import RoleManagement from '@/components/ibercs/administration/components/RoleManagement.vue';
+import Button from '@/components/ui/button/Button.vue';
 import Title from '@/components/ui/title/Title.vue'
-import router from '@/router';
+import router, { PathRoutes } from '@/router';
 import { watchEffect } from 'vue';
 
 document.title = "IBERCS - Administración"
@@ -24,7 +25,12 @@ watchEffect(() => {
             </div>
         </div>
         <div class="p-2 border rounded">
-            <span class="text-md font-semibold text-slate-500 pl-2">Gestionar noticias</span>
+            <div class="flex justify-between">
+                <span class="text-md font-semibold text-slate-500 pl-2 w-full">Gestionar noticias</span>
+                <RouterLink :to="PathRoutes.CreateNews" class="flex justify-end w-full mb-2">
+                    <Button size="sm" variant="secondary">Crear noticia</Button>
+                </RouterLink>
+            </div>
             <div class="flex pt-2">
                 <NewsManagement />
             </div>
