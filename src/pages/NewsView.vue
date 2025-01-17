@@ -11,6 +11,7 @@ import { useRoute } from 'vue-router';
 const { toast } = useToast();
 const route = useRoute();
 const newsId = route.params.id;
+const hash = route.query.hash?.toString() || "";
 const edit = route.query.mode;
 
 const loading = ref<boolean>(true)
@@ -18,7 +19,7 @@ const news = ref<News>(INITIAL_News)
 const editorMode = ref<boolean>(edit == "edit" ? true : false)
 
 watchEffect(async () => {
-    const res = await ApiBackend.News.GetNewsById(Number(newsId))
+    const res = await ApiBackend.News.GetNewsById(Number(newsId), hash)
     if (res.ok) {
         loading.value = false
         news.value = res.data
