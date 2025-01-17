@@ -101,6 +101,7 @@ const handlerDelete = async (id: number) => {
                     </TableCell>
                     <TableCell class="font-medium text-right">
                         <div class="flex justify-end gap-2">
+                            <IconButton icon="mdi:eye" :url="PathRoutes.News.replace(':id', n.Id.toString())+`?hash=${n.Code}`" />
                             <IconButton icon="akar-icons:edit" :url="PathRoutes.News.replace(':id', n.Id.toString())+`?mode=edit&hash=${n.Code}`" />
                             <AlertDialog>
                                 <AlertDialogTrigger>
