@@ -5,6 +5,7 @@ import NewsItem from '@/components/ibercs/news/components/NewsItem.vue';
 import Loader from '@/components/ui/loader/Loader.vue';
 import { useToast } from '@/components/ui/toast';
 import { INITIAL_News, News } from '@/entities/news';
+import router from '@/router';
 import { ref, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -23,7 +24,9 @@ watchEffect(async () => {
     if (res.ok) {
         loading.value = false
         news.value = res.data
+        return
     }
+    router.push("/")
 })
 
 const handlerUpdate = async (req:News) => {
