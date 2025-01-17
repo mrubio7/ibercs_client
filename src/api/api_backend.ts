@@ -75,8 +75,9 @@ export const ApiBackend = {
             const res = await GET(endpoint, false)
             return res
         },
-        GetNewsById: async (id:number) => {
-            const endpoint = `${getHost()}/news?id=${id}`;
+        GetNewsById: async (id:number, c:string) => {
+            const code = `${c != '' ? `&p=${c}` : ''}`
+            const endpoint = `${getHost()}/news?id=${id}${code}`;
             const res = await GET(endpoint, false)
             return res
         },

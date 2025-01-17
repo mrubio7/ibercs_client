@@ -8,14 +8,14 @@ import Loader from '@/components/ui/loader/Loader.vue';
 import Switch from '@/components/ui/switch/Switch.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useToast } from '@/components/ui/toast';
-import { News } from '@/entities/news';
+import { NewsWithCode } from '@/entities/news';
 import { PathRoutes } from '@/router';
 import { ref, watchEffect } from 'vue';
 
 const { toast } = useToast()
 
 const loading = ref<Boolean>(true)
-const newsList = ref<News[]>()
+const newsList = ref<NewsWithCode[]>()
 
 watchEffect(async () => {
     if (ApiPermissions.SuperAdmin.value) {
@@ -101,7 +101,7 @@ const handlerDelete = async (id: number) => {
                     </TableCell>
                     <TableCell class="font-medium text-right">
                         <div class="flex justify-end gap-2">
-                            <IconButton icon="akar-icons:edit" :url="PathRoutes.News.replace(':id', n.Id.toString())+'?mode=edit'" />
+                            <IconButton icon="akar-icons:edit" :url="PathRoutes.News.replace(':id', n.Id.toString())+`?mode=edit&hash=${n.Code}`" />
                             <AlertDialog>
                                 <AlertDialogTrigger>
                                     <IconButton v-if="ApiPermissions.News.Delete" icon="material-symbols:delete-outline-rounded" />

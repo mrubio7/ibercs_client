@@ -11,6 +11,10 @@ export interface News {
     CreatedBy   :Basic_User
 }
 
+export interface NewsWithCode extends News {
+    Code        :string
+}
+
 export const INITIAL_News:News = {
     Id:0,
     Title:"",
