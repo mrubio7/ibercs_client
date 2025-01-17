@@ -48,7 +48,7 @@ const handleUpdate = (val:string) => {
             theme="snow"
             toolbar="full"
             :style="{ border: toolbarDisplay }"
-            class="rounded-bl rounded-br"
+            class="rounded-bl rounded-br dark:text-slate-300 text-slate-700"
         />
     </div>
 </template>
