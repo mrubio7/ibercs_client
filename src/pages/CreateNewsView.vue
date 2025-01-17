@@ -24,7 +24,11 @@ const handleCreateNews = async (dto:News, publish:boolean) => {
             description:"Noticia creada satisfactoriamente, redirigiendo",
             duration: 4000
         })
-        router.push(PathRoutes.News.replace(":id", res.data.Id.toString()))
+        if (publish) {
+            router.push(PathRoutes.News.replace(":id", res.data.Id.toString()))
+        } else {
+            router.push(PathRoutes.Administration)
+        }
     } else {
         toast({
             title:"Error inesperado",
