@@ -39,7 +39,7 @@ const toggleExpand = (playerId: string) => {
             </span>
         </div>
         <div v-else>
-            <Table>
+            <Table class="rounded overflow-hidden">
                 <TableHeader>
                     <TableRow>
                         <TableHead>Equipo</TableHead>
