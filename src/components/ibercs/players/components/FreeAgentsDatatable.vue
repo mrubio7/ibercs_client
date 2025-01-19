@@ -12,6 +12,7 @@ import { DTO_UpdateFreeAgent } from '@/api/dto/request';
 import FreeAgent_Edit from './FreeAgent_Edit.vue';
 import { ApiBackend } from '@/api/api_backend';
 import { useToast } from '@/components/ui/toast';
+import Title from '@/components/ui/title/Title.vue';
 
 const props = defineProps({
     players: {
@@ -110,6 +111,7 @@ const closeModal = () => {
 
 <template>
     <section>
+        <Title text="Jugadores libres" />    
         <div v-if="!playersData" class="flex justify-center items-center px-4 py-10">
             <span class="text-slate-500 font-semibold">
                 Aún no hay jugadores en busqueda de equipo

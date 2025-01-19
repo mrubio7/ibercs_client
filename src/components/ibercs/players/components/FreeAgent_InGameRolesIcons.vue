@@ -41,14 +41,13 @@ const handleEditRole = (role: string) => {
 
 <template>
     <div v-if="modelValue">
-        <div class="flex justify-between mt-1.5">
+        <div class="flex justify-between">
             <div v-for="rol in allRoles" :key="rol" class="h-fit">
                 <TooltipProvider>
                     <Tooltip>
-                        <TooltipTrigger>
-                            <IconButton v-if="editable" @click="handleEditRole(rol)" :class="`h-6 w-6 ${modelValue?.includes(rol) ? 'opacity-100' : 'opacity-20'}`" :icon="`${GetRoleIcon(rol)}`"/>
-                            <IconButton v-else :class="`h-6 w-6 ${modelValue?.includes(rol) ? 'opacity-100' : 'opacity-20'}`" :icon="`${GetRoleIcon(rol)}`"/>
-
+                        <TooltipTrigger class="flex items-center">
+                            <IconButton class="flex items-center" v-if="editable" @click="handleEditRole(rol)" :class="`h-6 w-6 ${modelValue?.includes(rol) ? 'opacity-100' : 'opacity-20'}`" :icon="`${GetRoleIcon(rol)}`"/>
+                            <IconButton class="flex items-center" v-else :class="`h-6 w-6 ${modelValue?.includes(rol) ? 'opacity-100' : 'opacity-20'}`" :icon="`${GetRoleIcon(rol)}`"/>
                         </TooltipTrigger>
                         <TooltipContent class="ml-1.5">
                             <p>{{ rol }}</p>

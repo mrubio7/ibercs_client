@@ -39,12 +39,12 @@ onMounted( async () => {
                             <TableCell class="w-1/12 text-right">
                                 <Badge variant="secondary">{{ p.FaceitElo }}</Badge>
                             </TableCell>
-                            <TableCell class="w-4/12">
-                                <span class="pl-1 font-semibold text-slate-700 dark:text-slate-300">
+                            <TableCell class="w-3/12">
+                                <span class="pl-1 font-semibold text-slate-700 dark:text-slate-300 text-nowrap truncate">
                                     {{ p.Nickname }}
                                 </span>
                             </TableCell>
-                            <TableCell class="w-7/12">
+                            <TableCell class="w-8/12">
                                 <FreeAgent_InGameRolesIcons v-model="p.FreeAgent.InGameRoles" :editable="false" />
                             </TableCell>
                         </TableRow>

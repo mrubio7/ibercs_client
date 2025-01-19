@@ -122,5 +122,12 @@ export const ApiBackend = {
             const res = await PUT(endpoint, true, payload)
             return res
         }
+    },
+    Teams: {
+        GetActiveTeams: async () => {
+            const endpoint = `${getHost()}/team`;
+            const res = await GET(endpoint, false)
+            return res
+        }
     }
 }

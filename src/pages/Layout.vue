@@ -15,6 +15,8 @@ import { ItsAlreadyLogged } from '@/components/ibercs/user/user_state';
 import { User_Auth } from '@/entities/user';
 import UserState from '@/components/ibercs/user/user_state';
 import ApiPermissions from '@/api/api_permissions';
+import PlayersPreview from '@/components/ibercs/players/components/PlayersPreview.vue';
+import StreamCard from '@/components/ibercs/StreamCard.vue';
 
 const mode = useColorMode()
 const auth = ref<User_Auth | undefined>(undefined)
@@ -44,6 +46,12 @@ watchEffect(() => {
                             </MenubarShortcut>
                         </RouterLink>
     
+                        <RouterLink :to="PathRoutes.NewsHome">
+                            <MenubarLabel class="cursor-pointer rounded dark:hover:bg-slate-800 hover:bg-slate-200 transition p-2 px-4">
+                                Noticias
+                            </MenubarLabel>
+                        </RouterLink>
+
                         <MenubarMenu class="flex">
                             <MenubarTrigger class="cursor-pointer dark:hover:bg-slate-800 hover:bg-slate-200 transition p-2 px-4">Jugadores</MenubarTrigger>
                             <MenubarContent>
@@ -61,12 +69,12 @@ watchEffect(() => {
                             </MenubarContent>
                         </MenubarMenu>
 
-                        <RouterLink :to="PathRoutes.NewsHome">
+                        <RouterLink :to="PathRoutes.Teams">
                             <MenubarLabel class="cursor-pointer rounded dark:hover:bg-slate-800 hover:bg-slate-200 transition p-2 px-4">
-                                Noticias
+                                Equipos
                             </MenubarLabel>
                         </RouterLink>
-    
+
                     </Menubar>
                 </div>
                 <div class="lg:hidden flex">
@@ -84,19 +92,32 @@ watchEffect(() => {
                                 <Icon icon="cuida:menu-outline" class="h-[1.2rem] w-[1.2rem] rotate-0 transition-all dark:scale-100" />
                             </MenubarTrigger>
                             <MenubarContent>
+
+                                <RouterLink :to="PathRoutes.NewsHome">
+                                    <MenubarSub>
+                                        <MenubarItem>Noticias</MenubarItem>
+                                    </MenubarSub>
+                                </RouterLink>
+
                                 <MenubarSub>
                                     <MenubarSubTrigger>Jugadores</MenubarSubTrigger>
                                     <MenubarSubContent>
                                         <RouterLink :to="PathRoutes.Ladder_Players">
                                             <MenubarItem class="cursor-pointer">Clasificación</MenubarItem>
                                         </RouterLink>
+                                        <MenubarSeparator />
+                                        <RouterLink :to="PathRoutes.FreeAgents">
+                                            <MenubarItem class="cursor-pointer">Jugadores libres</MenubarItem>
+                                        </RouterLink>
                                     </MenubarSubContent>
                                 </MenubarSub>
-                                <RouterLink :to="PathRoutes.NewsHome">
+
+                                <RouterLink :to="PathRoutes.Teams">
                                     <MenubarSub>
-                                    <MenubarItem>Noticias</MenubarItem>
-                                </MenubarSub>
+                                        <MenubarItem>Equipos</MenubarItem>
+                                    </MenubarSub>
                                 </RouterLink>
+
                             </MenubarContent>
                         </MenubarMenu>
                     </Menubar>
@@ -149,8 +170,7 @@ watchEffect(() => {
         <div class="flex-grow flex px-2">
             <!-- Sección izquierda -->
             <div class="w-1/6 py-4 px-6 flex-col gap-4 lg:flex hidden">
-                <!-- <Prominent_players :players="prominentPlayers" />
-                <Advertisement /> -->
+                <PlayersPreview :playersNumber="25" />
             </div>
 
             <!-- Sección central -->
@@ -162,8 +182,7 @@ watchEffect(() => {
 
             <!-- Sección derecha -->
             <div class="w-1/6 p-4 flex-col gap-4 lg:flex hidden">
-                <!-- <Streams />
-                <Matches /> -->
+                <StreamCard />
             </div>
         </div>
 

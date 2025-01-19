@@ -25,11 +25,26 @@ onMounted(async () => {
         loading.value = false
     }
 })
+
+const getColorRank = (n:number) => {
+    // switch (n) {
+    //     case 1:
+    //         return "to-amber-400"
+    //     case 2:
+    //         return "to-red-600"
+    //     case 3:
+    //         return "to-fuchsia-800"
+    //     case 4:
+    //         return "to-indigo-800"
+    //     case 5:
+    //         return "to-blue-700"
+    // }
+}
 </script>
 
 <template>
-    <section>
-        <Title text="Top 10 jugadores" />
+    <section class="border rounded p-2">
+        <Title :text="`Top ${props.playersNumber} jugadores`" />
         <div class="flex flex-col border rounded overflow-hidden">
             <div v-if="loading" class="p-8">
                 <Loader />
@@ -37,11 +52,11 @@ onMounted(async () => {
             <div v-else>
                 <Table>
                     <TableBody>
-                        <TableRow v-for="(player, n) in players" :key="player.Id"  class="">
-                            <TableCell class="w-8 text-center text-slate-500">
+                        <TableRow v-for="(player, n) in players" :key="player.Id" class="bg-gradient-to-r from-transparent via-[transparent] via-[transparent]" :class="getColorRank(n+1)" >
+                            <TableCell class="w-8 text-center font-semibold text-slate-800 dark:text-slate-100">
                                 {{ n+1 }}º
                             </TableCell>
-                            <TableCell class="font-semibold text-slate-600 dark:text-slate-400">
+                            <TableCell class="font-semibold text-slate-800 dark:text-slate-100">
                                 {{ player.Nickname }}
                             </TableCell>
                             <TableCell class="w-16">
