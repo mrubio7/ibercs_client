@@ -6,5 +6,5 @@ export interface Team {
     Tag: string
     Name: string
     Logo: string
-    Members: Player[]
+    Players: Player[]
 }
