@@ -6,7 +6,6 @@ import Button from '@/components/ui/button/Button.vue';
 import Icon from '@/components/ui/icon/Icon.vue';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import TableCell from '@/components/ui/table/TableCell.vue';
-import Title from '@/components/ui/title/Title.vue';
 import { Team } from '@/entities/team';
 import { PropType, ref } from 'vue';
 import PlayerStats from '../../players/components/PlayerStats.vue';

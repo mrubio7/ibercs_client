@@ -8,3 +8,14 @@ export interface Team {
     Logo: string
     Players: Player[]
 }
+
+export interface FaceitTeam extends Team {
+    Members: Member[]
+}
+
+interface Member {
+    FaceitId :string
+	Nickname :string
+	Avatar   :string
+	Country  :string
+}

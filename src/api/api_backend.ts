@@ -125,7 +125,17 @@ export const ApiBackend = {
     },
     Teams: {
         GetActiveTeams: async () => {
-            const endpoint = `${getHost()}/team`;
+            const endpoint = `${getHost()}/teams`;
+            const res = await GET(endpoint, false)
+            return res
+        },
+        GetTeamByFaceitId: async (faceitId:string) => {
+            const endpoint = `${getHost()}/team?faceitId=${faceitId}`;
+            const res = await GET(endpoint, false)
+            return res
+        },
+        GetTeamFromFaceit: async (faceitId:string) => {
+            const endpoint = `${getHost()}/team/faceit?faceitId=${faceitId}`;
             const res = await GET(endpoint, false)
             return res
         }
