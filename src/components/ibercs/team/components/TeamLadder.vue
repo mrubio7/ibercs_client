@@ -30,9 +30,6 @@ const toggleExpand = (playerId: string) => {
 
 <template>
     <section>
-        <div class="flex justify-between">
-            <Title text="Equipos" />
-        </div>
         <div v-if="teams.length == 0" class="flex justify-center items-center p-8">
             <span class="text-slate-500 font-semibold">
                 Aún no hay equipos

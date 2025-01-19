@@ -57,7 +57,12 @@ const handleEditFreeAgent = async () => {
         FaceitId: editFreeAgent.value.FaceitId,
         InGameRoles: editFreeAgent.value.InGameRoles,
         Publish: true
-    } 
+    }
+
+    if (dto.InGameRoles == null) {
+        dto.InGameRoles = []
+    }
+
     const res = await ApiBackend.Players.UpdateFreeAgent(dto)
     if (res.ok) {
         const updatedPlayer = res.data;

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ApiBackend } from '@/api/api_backend';
 import TeamLadder from '@/components/ibercs/team/components/TeamLadder.vue';
+import Loader from '@/components/ui/loader/Loader.vue';
+import Title from '@/components/ui/title/Title.vue';
 import { Team } from '@/entities/team';
 import { onMounted, ref } from 'vue';
 
@@ -16,5 +18,13 @@ onMounted(async () => {
 })
 </script>
 <template>
-    <TeamLadder :teams="teams" />
+    <div class="flex justify-between">
+        <Title text="Equipos" />
+    </div>
+    <section v-if="loading">
+        <Loader />
+    </section>
+    <section v-else>
+        <TeamLadder :teams="teams" />
+    </section>
 </template>
