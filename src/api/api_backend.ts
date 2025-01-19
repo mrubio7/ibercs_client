@@ -1,7 +1,7 @@
 import { Player } from "@/entities/players"
 import { DELETE, GET, POST, PUT } from "@/libs/fetchs"
 import { Token } from "@/entities/Token"
-import { DTO_AuthFaceitCallback, DTO_CreateNews, DTO_UpdateFreeAgent, DTO_UpdateNews, DTO_UpdatePublishNews, DTO_UpdateRole, DTO_UpdateUser } from "./dto/request"
+import { DTO_AssignPlayerToTeam, DTO_AuthFaceitCallback, DTO_CreateNews, DTO_UpdateFreeAgent, DTO_UpdateNews, DTO_UpdatePublishNews, DTO_UpdateRole, DTO_UpdateUser } from "./dto/request"
 import { BuildPayload } from "@/libs/payload"
 
 const getHost = (): string => {
@@ -65,6 +65,12 @@ export const ApiBackend = {
         UpdateFreeAgent: async (dto:DTO_UpdateFreeAgent) => {
             const payload = BuildPayload("json", dto)
             const endpoint = `${getHost()}/player/free-agent`;
+            const res = await PUT(endpoint, true, payload)
+            return res
+        },
+        AssignToTeam: async (dto:DTO_AssignPlayerToTeam) => {
+            const payload = BuildPayload("json", dto)
+            const endpoint = `${getHost()}/player/team`;
             const res = await PUT(endpoint, true, payload)
             return res
         }

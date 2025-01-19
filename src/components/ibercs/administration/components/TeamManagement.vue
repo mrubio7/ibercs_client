@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ApiBackend } from '@/api/api_backend';
+import { DTO_AssignPlayerToTeam } from '@/api/dto/request';
 import Avatar from '@/components/ui/avatar/Avatar.vue';
 import AvatarImage from '@/components/ui/avatar/AvatarImage.vue';
 import ComboBox from '@/components/ui/combo-box/ComboBox.vue';
@@ -32,16 +33,26 @@ watchEffect(async () => {
 
 const teamSaved = ref<Team>()
 watchEffect(async () => {
-    const res = await ApiBackend.Teams.GetTeamByFaceitId(teamIdchosen.value)
-    if (res.ok) {
-        teamSaved.value = res.data
+    if (teamIdchosen.value != "") {
+        const res = await ApiBackend.Teams.GetTeamByFaceitId(teamIdchosen.value)
+        if (res.ok) {
+            teamSaved.value = res.data
+        }
     }
 })
 const isPlayerAssigned = (faceitId: string): boolean => {
-  return teamSaved.value?.Players?.some(p => p.FaceitId === faceitId) ?? false;
+    return teamSaved.value?.Players?.some(p => p.FaceitId === faceitId) ?? false;
 };
-const assignPlayer = (playerFaceitId: string, teamFaceitId: string, checked: boolean) => {
-  
+const assignPlayer = async (playerFaceitId: string, teamId: number, checked: boolean) => {
+    const payload:DTO_AssignPlayerToTeam = {
+        Assign:checked,
+        PlayerFaceitId:playerFaceitId,
+        TeamId:teamId
+    }
+    const res = await ApiBackend.Players.AssignToTeam(payload)
+    if (res.ok) {
+        
+    }
 }
 </script>
 
@@ -93,7 +104,7 @@ const assignPlayer = (playerFaceitId: string, teamFaceitId: string, checked: boo
                                         <Switch
                                             :disabled="m.Country !== 'es'"
                                             :checked="isPlayerAssigned(m.FaceitId)"
-                                            @update:checked="(checkedValue) => assignPlayer(m.FaceitId, teamIdchosen, checkedValue)"
+                                            @update:checked="(checkedValue) => assignPlayer(m.FaceitId, teamSaved!.Id, checkedValue)"
                                         />
                                     </div>
                                 </TableCell>

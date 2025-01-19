@@ -170,7 +170,7 @@ watchEffect(() => {
         <div class="flex-grow flex px-2">
             <!-- Sección izquierda -->
             <div class="w-1/6 py-4 px-6 flex-col gap-4 lg:flex hidden">
-                <PlayersPreview :playersNumber="25" />
+                <PlayersPreview :playersNumber="20" />
             </div>
 
             <!-- Sección central -->

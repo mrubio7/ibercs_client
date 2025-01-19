@@ -1,6 +1,7 @@
 import { Player } from "./players"
 
 export interface Team {
+    Id: number
     FaceitId: string
     Avatar: string
     Tag: string
