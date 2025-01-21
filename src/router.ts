@@ -10,17 +10,19 @@ import CreateNewsView from './pages/CreateNewsView.vue'
 import NewsAllView from './pages/NewsAllView.vue'
 import AdministrationView from './pages/AdministrationView.vue'
 import FreeAgentsView from './pages/FreeAgentsView.vue'
+import TeamsView from './pages/TeamsView.vue'
 
 export const PathRoutes = {
 	Home: "/",
-	Ladder_Players: "/ladder/players",
+	Ladder_Players: "/players",
 	MyProfile: "/my-profile",
 	AuthCallback: "/auth/callback",
 	News: "/news/:id",
 	NewsHome: "/news",
 	CreateNews: "/admin/news/create",
 	Administration: "/administration",
-	FreeAgents: "/players/free-agents"
+	FreeAgents: "/players/free-agents",
+	Teams: "/teams"
 }
 
 const routes = [
@@ -32,7 +34,8 @@ const routes = [
 		{ path: PathRoutes.NewsHome, component: NewsAllView },
 		{ path: PathRoutes.CreateNews, component: CreateNewsView },
 		{ path: PathRoutes.Administration, component: AdministrationView },
-		{ path: PathRoutes.FreeAgents, component: FreeAgentsView }
+		{ path: PathRoutes.FreeAgents, component: FreeAgentsView },
+		{ path: PathRoutes.Teams, component: TeamsView }
 	]},
 	{ path: PathRoutes.AuthCallback, component: FaceitCallback},
 	{ path: "/:pathMatch(.*)*", component: NotFoundView },

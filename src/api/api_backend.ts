@@ -1,7 +1,7 @@
 import { Player } from "@/entities/players"
 import { DELETE, GET, POST, PUT } from "@/libs/fetchs"
 import { Token } from "@/entities/Token"
-import { DTO_AuthFaceitCallback, DTO_CreateNews, DTO_UpdateFreeAgent, DTO_UpdateNews, DTO_UpdatePublishNews, DTO_UpdateRole, DTO_UpdateUser } from "./dto/request"
+import { DTO_ActivateTeam, DTO_AssignPlayerToTeam, DTO_AuthFaceitCallback, DTO_CreateNews, DTO_CreateTeam, DTO_UpdateFreeAgent, DTO_UpdateNews, DTO_UpdatePublishNews, DTO_UpdateRole, DTO_UpdateUser } from "./dto/request"
 import { BuildPayload } from "@/libs/payload"
 
 const getHost = (): string => {
@@ -67,6 +67,12 @@ export const ApiBackend = {
             const endpoint = `${getHost()}/player/free-agent`;
             const res = await PUT(endpoint, true, payload)
             return res
+        },
+        AssignToTeam: async (dto:DTO_AssignPlayerToTeam) => {
+            const payload = BuildPayload("json", dto)
+            const endpoint = `${getHost()}/player/team`;
+            const res = await PUT(endpoint, true, payload)
+            return res
         }
     },
     News: {
@@ -120,6 +126,40 @@ export const ApiBackend = {
             const payload = BuildPayload("json", dto)
             const endpoint = `${getHost()}/admin/news`;
             const res = await PUT(endpoint, true, payload)
+            return res
+        },
+        GetAllTeams: async () => {
+            const endpoint = `${getHost()}/admin/teams`;
+            const res = await GET(endpoint, true)
+            return res
+        },
+        ActivateTeam: async (dto:DTO_ActivateTeam) => {
+            const payload = BuildPayload("json", dto)
+            const endpoint = `${getHost()}/admin/team/activate`;
+            const res = await PUT(endpoint, true, payload)
+            return res
+        }
+    },
+    Teams: {
+        GetActiveTeams: async () => {
+            const endpoint = `${getHost()}/teams`;
+            const res = await GET(endpoint, false)
+            return res
+        },
+        GetTeamByFaceitId: async (faceitId:string) => {
+            const endpoint = `${getHost()}/team?faceitId=${faceitId}`;
+            const res = await GET(endpoint, false)
+            return res
+        },
+        GetTeamFromFaceit: async (faceitId:string) => {
+            const endpoint = `${getHost()}/team/faceit?faceitId=${faceitId}`;
+            const res = await GET(endpoint, false)
+            return res
+        },
+        CreateTeam: async (dto:DTO_CreateTeam) => {
+            const payload = BuildPayload("json", dto)
+            const endpoint = `${getHost()}/team`;
+            const res = await POST(endpoint, true, payload)
             return res
         }
     }

@@ -49,24 +49,24 @@ watchEffect(() => {
 
 <template>
     <div v-if="props.url">
-        <div v-if="disabled" class="flex">
+        <div v-if="disabled" class="flex items-center justify-center">
             <a :href="`${props.url}`" target="_blank" class="p-1.5 rounded-md transition h-fit cursor-default">
                 <Icon @click="props.handler ? props.handler : ''" :icon="props.icon" :class="`h-[${size}] w-[${size}] scale-0 transition-all rotate-0 scale-100 dark:text-slate-700 text-slate-200`" />
             </a>
         </div>
-        <div v-else class="flex">
+        <div v-else class="flex items-center justify-center">
             <a :disbled="disabled" :href="`${props.url}`" target="_blank"  class="p-1.5 rounded-md transition h-fit dark:hover:bg-slate-800 hover:bg-slate-100 cursor-pointer">
                 <Icon @click="props.handler ? props.handler : ''" :icon="props.icon" :class="`h-[${size}] w-[${size}] scale-0 transition-all rotate-0 scale-100 dark:text-slate-300 text-slate-700`" />
             </a>
         </div>
     </div>
     <div v-else>
-        <div v-if="disabled" class="flex">
+        <div v-if="disabled" class="flex items-center justify-center">
             <a target="_blank" class="p-1.5 rounded-md transition h-fit cursor-default">
                 <Icon @click="props.handler ? props.handler : ''" :icon="props.icon" :class="`h-[${size}] w-[${size}] scale-0 transition-all rotate-0 scale-100 dark:text-slate-700 text-slate-200`" />
             </a>
         </div>
-        <div v-else class="flex">
+        <div v-else class="flex items-center justify-center">
             <a :disbled="disabled" target="_blank"  class="p-1.5 rounded-md transition h-fit dark:hover:bg-slate-800 hover:bg-slate-100 cursor-pointer">
                 <Icon @click="props.handler ? props.handler : ''" :icon="props.icon" :class="`h-[${size}] w-[${size}] scale-0 transition-all rotate-0 scale-100 dark:text-slate-300 text-slate-700`" />
             </a>
