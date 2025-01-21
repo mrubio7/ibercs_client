@@ -29,6 +29,7 @@ watchEffect(() => {
         freeAgent.value.InGameRoles = myUser.value.Player.FreeAgent.InGameRoles
         freeAgent.value.Publish = myUser.value.Player.FreeAgent.Publish
     }
+    console.log(freeAgent)
     
 })
 
@@ -42,6 +43,9 @@ const handleEditFreeAgent = async () => {
             description: "El anuncio ha sido publicado"
         })
         editFreeAgent.value = false
+        UserState.Player!.FreeAgent.Description = freeAgent.value.Description
+        UserState.Player!.FreeAgent.InGameRoles = freeAgent.value.InGameRoles
+        UserState.Player!.FreeAgent.Publish = freeAgent.value.Publish
         return
     }
     toast({

@@ -2,6 +2,7 @@
 import ApiPermissions from '@/api/api_permissions';
 import NewsManagement from '@/components/ibercs/administration/components/NewsManagement.vue';
 import RoleManagement from '@/components/ibercs/administration/components/RoleManagement.vue';
+import TeamManagement from '@/components/ibercs/administration/components/TeamManagement.vue';
 import Button from '@/components/ui/button/Button.vue';
 import Title from '@/components/ui/title/Title.vue'
 import router, { PathRoutes } from '@/router';
@@ -22,6 +23,12 @@ watchEffect(() => {
             <span class="text-md font-semibold text-slate-500 pl-2">Gestionar roles</span>
             <div class="flex pt-2">
                 <RoleManagement />
+            </div>
+        </div>
+        <div class="p-2 border rounded">
+            <span class="text-md font-semibold text-slate-500 pl-2">Gestionar equipos</span>
+            <div class="flex pt-2">
+                <TeamManagement />
             </div>
         </div>
         <div class="p-2 border rounded">

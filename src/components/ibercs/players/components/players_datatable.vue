@@ -14,6 +14,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { formatTimestampToDateTime } from '@/libs/utils'
 import { ApiBackend } from '@/api/api_backend'
 import { useToast } from '@/components/ui/toast'
+import Title from '@/components/ui/title/Title.vue'
 
 const route = useRoute();
 const router = useRouter();
@@ -187,7 +188,7 @@ const handleUpdatePlayer = async (index: number) => {
 
 <template>
 	<section class="w-full">
-		<span class="p-2 text-lg font-semibold">Estadísticas de jugadores</span>
+		<Title text="Estadísticas de jugadores" />
 
 		<!-- Campo de búsqueda -->
 		<div class="flex px-2 mt-2 gap-2 items-center">

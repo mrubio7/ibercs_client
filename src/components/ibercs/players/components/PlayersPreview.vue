@@ -25,26 +25,42 @@ onMounted(async () => {
         loading.value = false
     }
 })
+
+const getColorRank = (_:number) => {
+    // switch (n) {
+    //     case 1:
+    //         return "to-amber-400"
+    //     case 2:
+    //         return "to-red-600"
+    //     case 3:
+    //         return "to-fuchsia-800"
+    //     case 4:
+    //         return "to-indigo-800"
+    //     case 5:
+    //         return "to-blue-700"
+    // }
+}
 </script>
 
 <template>
-    <section>
-        <Title text="Top 10 jugadores" />
+    <section class="border rounded p-2">
+        <Title :text="`Top ${props.playersNumber} jugadores`" />
         <div class="flex flex-col border rounded overflow-hidden">
             <div v-if="loading" class="p-8">
                 <Loader />
             </div>
             <div v-else>
-                <Table>
+                <Table >
                     <TableBody>
-                        <TableRow v-for="(player, n) in players" :key="player.Id"  class="">
-                            <TableCell class="w-8 text-center text-slate-500">
+                        <TableRow v-for="(player, n) in players" :key="player.Id" class="bg-gradient-to-r from-transparent via-[transparent] via-[transparent]" :class="getColorRank(n+1)" >
+                            <TableCell class="w-6 text-center font-semibold text-slate-800 dark:text-slate-100 p-1 pl-2">
                                 {{ n+1 }}º
                             </TableCell>
-                            <TableCell class="font-semibold text-slate-600 dark:text-slate-400">
+                            <TableCell class="flex items-center gap-2 font-semibold text-slate-800 dark:text-slate-100 p-1">
+                                <img :src="player.Avatar" class="h-6 w-6 rounded-full border border-slate-500" />
                                 {{ player.Nickname }}
                             </TableCell>
-                            <TableCell class="w-16">
+                            <TableCell class="w-16 p-1 text-right">
                                 <Badge variant="secondary">{{ player.FaceitElo }}</Badge>
                             </TableCell>
                         </TableRow>

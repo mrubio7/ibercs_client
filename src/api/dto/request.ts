@@ -46,3 +46,9 @@ export interface DTO_UpdateFreeAgent {
 	Description :string
 	Publish     :boolean
 }
+
+export interface DTO_AssignPlayerToTeam {
+	TeamId         :number
+	PlayerFaceitId :string
+	Assign         :boolean
+}

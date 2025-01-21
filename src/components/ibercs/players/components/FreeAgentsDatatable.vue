@@ -12,6 +12,8 @@ import { DTO_UpdateFreeAgent } from '@/api/dto/request';
 import FreeAgent_Edit from './FreeAgent_Edit.vue';
 import { ApiBackend } from '@/api/api_backend';
 import { useToast } from '@/components/ui/toast';
+import Title from '@/components/ui/title/Title.vue';
+import PlayerStats from './PlayerStats.vue';
 
 const props = defineProps({
     players: {
@@ -55,7 +57,12 @@ const handleEditFreeAgent = async () => {
         FaceitId: editFreeAgent.value.FaceitId,
         InGameRoles: editFreeAgent.value.InGameRoles,
         Publish: true
-    } 
+    }
+
+    if (dto.InGameRoles == null) {
+        dto.InGameRoles = []
+    }
+
     const res = await ApiBackend.Players.UpdateFreeAgent(dto)
     if (res.ok) {
         const updatedPlayer = res.data;
@@ -110,6 +117,7 @@ const closeModal = () => {
 
 <template>
     <section>
+        <Title text="Jugadores libres" />    
         <div v-if="!playersData" class="flex justify-center items-center px-4 py-10">
             <span class="text-slate-500 font-semibold">
                 Aún no hay jugadores en busqueda de equipo
@@ -147,7 +155,7 @@ const closeModal = () => {
                             </TableCell>
                             <TableCell class="w-3/12">
                                 <Button size="icon" class="scale-90" variant="outline" @click="toggleExpand(p.FaceitId)" >
-                                    <Icon class="h-8 w-8 transition-all scale-150" icon="ic:round-expand-less" :class="expandedPlayers.has(p.FaceitId) ? 'rotate-180' : ''" />
+                                    <Icon class="h-8 w-8 transition-all scale-150" icon="ic:round-expand-less" :class="expandedPlayers.has(p.FaceitId) ? '' : 'rotate-180'" />
                                 </Button>
                             </TableCell>
                             <TableCell class="w-20">
@@ -161,34 +169,7 @@ const closeModal = () => {
                         <TableRow  class="bg-gray-100 dark:bg-gray-900 transition-all ease-out"  :class="expandedPlayers.has(p.FaceitId) ? 'translate-y-0' : '-translate-y-2'">
                             <TableCell class="border-b-2" :class="expandedPlayers.has(p.FaceitId) ? '' : 'hidden'" colspan="6">
                                 <div class="flex gap-2 w-full -mt-1">
-                                    <div class="w-2/12 flex flex-col justify-center items-center">
-                                        <span class="text-xs text-slate-500">KD</span>
-                                        <span class="text-xs dark:text-slate-300 text-slate-700">{{ p.Stats.KdRatio }}</span>
-                                    </div>
-                                    <div class="w-2/12 flex flex-col justify-center items-center">
-                                        <span class="text-xs text-slate-500">KR</span>
-                                        <span class="text-xs dark:text-slate-300 text-slate-700">{{ p.Stats.KrRatio }}</span>
-                                    </div>
-                                    <div class="w-2/12 flex flex-col justify-center items-center">
-                                        <span class="text-xs text-slate-500">% Headshot</span>
-                                        <span class="text-xs dark:text-slate-300 text-slate-700">{{ p.Stats.HeadshotPercentAverage }}</span>
-                                    </div>
-                                    <div class="w-2/12 flex flex-col justify-center items-center">
-                                        <span class="text-xs text-slate-500">Kills</span>
-                                        <span class="text-xs dark:text-slate-300 text-slate-700">{{ p.Stats.KillsAverage }}</span>
-                                    </div>
-                                    <div class="w-2/12 flex flex-col justify-center items-center">
-                                        <span class="text-xs text-slate-500">Deaths</span>
-                                        <span class="text-xs dark:text-slate-300 text-slate-700">{{ p.Stats.DeathsAverage }}</span>
-                                    </div>
-                                    <div class="w-2/12 flex flex-col justify-center items-center">
-                                        <span class="text-xs text-slate-500">Assists</span>
-                                        <span class="text-xs dark:text-slate-300 text-slate-700">{{ p.Stats.AssistAverage }}</span>
-                                    </div>
-                                    <div class="w-2/12 flex flex-col justify-center items-center">
-                                        <span class="text-xs text-slate-500">MVPs</span>
-                                        <span class="text-xs dark:text-slate-300 text-slate-700">{{ p.Stats.MVPAverage }}</span>
-                                    </div>
+                                    <PlayerStats :stats="p.Stats" />
                                 </div>
                             </TableCell>
                         </TableRow>
