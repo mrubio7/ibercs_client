@@ -8,12 +8,12 @@ document.title = "IBERCS - Inicio"
 <template>
 	<div class="grid grid-cols-5 gap-4 p-2">
 		<div class="col-span-3">
-			<div class="border rounded px-2 pb-2">
+			<div class="border rounded p-2">
 				<NewsList :preview="true" />
 			</div>
 		</div>
 		<div class="col-span-2">
-			<div class="border rounded px-2 pb-2">
+			<div class="border rounded p-2">
 				<FreeAgentsPreview />
 			</div>
 		</div>
