@@ -60,3 +60,8 @@ export interface DTO_CreateTeam {
 	Avatar    :string
 	PlayersId :string[]
 }
+
+export interface DTO_ActivateTeam {
+	FaceitId  :string
+	Activate  :boolean
+}

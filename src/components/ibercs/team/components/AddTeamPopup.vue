@@ -58,7 +58,7 @@ const handlerCreate = async () => {
 <template>
     <AlertDialog>
         <AlertDialogTrigger>
-            <Button size="sm" variant="secondary">Proponer equipo</Button>
+            <Button size="sm" variant="secondary">Añadir equipo</Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
             <AlertDialogHeader>

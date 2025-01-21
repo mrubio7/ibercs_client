@@ -1,7 +1,7 @@
 import { Player } from "@/entities/players"
 import { DELETE, GET, POST, PUT } from "@/libs/fetchs"
 import { Token } from "@/entities/Token"
-import { DTO_AssignPlayerToTeam, DTO_AuthFaceitCallback, DTO_CreateNews, DTO_CreateTeam, DTO_UpdateFreeAgent, DTO_UpdateNews, DTO_UpdatePublishNews, DTO_UpdateRole, DTO_UpdateUser } from "./dto/request"
+import { DTO_ActivateTeam, DTO_AssignPlayerToTeam, DTO_AuthFaceitCallback, DTO_CreateNews, DTO_CreateTeam, DTO_UpdateFreeAgent, DTO_UpdateNews, DTO_UpdatePublishNews, DTO_UpdateRole, DTO_UpdateUser } from "./dto/request"
 import { BuildPayload } from "@/libs/payload"
 
 const getHost = (): string => {
@@ -133,6 +133,12 @@ export const ApiBackend = {
             const res = await GET(endpoint, true)
             return res
         },
+        ActivateTeam: async (dto:DTO_ActivateTeam) => {
+            const payload = BuildPayload("json", dto)
+            const endpoint = `${getHost()}/admin/team/activate`;
+            const res = await PUT(endpoint, true, payload)
+            return res
+        }
     },
     Teams: {
         GetActiveTeams: async () => {
