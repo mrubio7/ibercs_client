@@ -7,7 +7,6 @@ import ComboBox from '@/components/ui/combo-box/ComboBox.vue';
 import IconButton from '@/components/ui/icon-button/IconButton.vue';
 import Switch from '@/components/ui/switch/Switch.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Player } from '@/entities/players';
 import { FaceitTeam, Team } from '@/entities/team';
 import { onMounted, ref, watchEffect } from 'vue';
 

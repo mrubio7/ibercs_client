@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Avatar from '../avatar/Avatar.vue';
 import AvatarImage from '../avatar/AvatarImage.vue';
-import Icon from '../icon/Icon.vue';
 import Tooltip from '../tooltip/Tooltip.vue';
 import TooltipContent from '../tooltip/TooltipContent.vue';
 import TooltipProvider from '../tooltip/TooltipProvider.vue';

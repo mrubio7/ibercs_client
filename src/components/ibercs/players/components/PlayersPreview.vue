@@ -26,7 +26,7 @@ onMounted(async () => {
     }
 })
 
-const getColorRank = (n:number) => {
+const getColorRank = (_:number) => {
     // switch (n) {
     //     case 1:
     //         return "to-amber-400"
