@@ -7,9 +7,11 @@ import ComboBox from '@/components/ui/combo-box/ComboBox.vue';
 import IconButton from '@/components/ui/icon-button/IconButton.vue';
 import Switch from '@/components/ui/switch/Switch.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useToast } from '@/components/ui/toast';
 import { FaceitTeam, Team } from '@/entities/team';
 import { onMounted, ref, watchEffect } from 'vue';
 
+const { toast } = useToast()
 const loading = ref<boolean>(true)
 const teamOpts = ref<{value:string, label:string}[]>([])
 const teamIdchosen = ref<string>("")
@@ -36,22 +38,40 @@ watchEffect(async () => {
         const res = await ApiBackend.Teams.GetTeamByFaceitId(teamIdchosen.value)
         if (res.ok) {
             teamSaved.value = res.data
+            assignedPlayers.value = new Set((res.data as Team).Players.map(p => p.FaceitId))
         }
     }
 })
+const assignedPlayers = ref<Set<string>>(new Set());
 const isPlayerAssigned = (faceitId: string): boolean => {
-    return teamSaved.value?.Players?.some(p => p.FaceitId === faceitId) ?? false;
+    return assignedPlayers.value.has(faceitId)
 };
-const assignPlayer = async (playerFaceitId: string, teamId: number, checked: boolean) => {
-    const payload:DTO_AssignPlayerToTeam = {
-        Assign:checked,
-        PlayerFaceitId:playerFaceitId,
-        TeamId:teamId
+const assignPlayer = async (playerFaceitId: string, teamId: number) => {
+    if (assignedPlayers.value.has(playerFaceitId)) {
+        assignedPlayers.value.delete(playerFaceitId);
+    } else {
+        assignedPlayers.value.add(playerFaceitId);
     }
+
+    const payload:DTO_AssignPlayerToTeam = {
+        Assign: assignedPlayers.value.has(playerFaceitId),
+        PlayerFaceitId: playerFaceitId,
+        TeamId: teamId
+    }
+
     const res = await ApiBackend.Players.AssignToTeam(payload)
     if (res.ok) {
-        
+        toast({
+            title: "Jugador asignado correctamente",
+            description: `El jugador ha sido asignado correctamente al equipo`,
+        })
+        return
     }
+    toast({
+        title: "Error al asignar jugador",
+        description: `Ha ocurrido un error al asignar el jugador al equipo`,
+    })
+    assignedPlayers.value.delete(playerFaceitId);
 }
 </script>
 
@@ -103,7 +123,7 @@ const assignPlayer = async (playerFaceitId: string, teamId: number, checked: boo
                                         <Switch
                                             :disabled="m.Country !== 'es'"
                                             :checked="isPlayerAssigned(m.FaceitId)"
-                                            @update:checked="(checkedValue) => assignPlayer(m.FaceitId, teamSaved!.Id, checkedValue)"
+                                            @update:checked="assignPlayer(m.FaceitId, teamSaved!.Id)"
                                         />
                                     </div>
                                 </TableCell>
