@@ -17,7 +17,7 @@ const teamOpts = ref<{value:string, label:string}[]>([])
 const teamIdchosen = ref<string>("")
 
 onMounted(async() => {
-    const res = await ApiBackend.Teams.GetActiveTeams()
+    const res = await ApiBackend.Admin.GetAllTeams()
     if (res.ok) {
         teamOpts.value = Array.from(res.data as Team[]).map((user) => ({ value: user.FaceitId, label: user.Name }))
         loading.value = false

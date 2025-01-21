@@ -3,6 +3,7 @@ import ApiPermissions from '@/api/api_permissions';
 import NewsManagement from '@/components/ibercs/administration/components/NewsManagement.vue';
 import RoleManagement from '@/components/ibercs/administration/components/RoleManagement.vue';
 import TeamManagement from '@/components/ibercs/administration/components/TeamManagement.vue';
+import AddTeamPopup from '@/components/ibercs/team/components/AddTeamPopup.vue';
 import Button from '@/components/ui/button/Button.vue';
 import Title from '@/components/ui/title/Title.vue'
 import router, { PathRoutes } from '@/router';
@@ -26,7 +27,10 @@ watchEffect(() => {
             </div>
         </div>
         <div class="p-2 border rounded">
-            <span class="text-md font-semibold text-slate-500 pl-2">Gestionar equipos</span>
+            <div class="flex justify-between">
+                <span class="text-md font-semibold text-slate-500 pl-2 w-full">Gestionar equipos</span>
+                <AddTeamPopup />
+            </div>
             <div class="flex pt-2">
                 <TeamManagement />
             </div>
