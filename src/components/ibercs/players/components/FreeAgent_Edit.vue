@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { DTO_UpdateFreeAgent } from '@/api/dto/request';
 import { useVModel } from '@vueuse/core';
-import { PropType, ref, watchEffect } from 'vue';
+import { PropType } from 'vue';
 import FreeAgent_InGameRolesIcons from './FreeAgent_InGameRolesIcons.vue';
 import Textarea from '@/components/ui/textarea/Textarea.vue';
 import Switch from '@/components/ui/switch/Switch.vue';
