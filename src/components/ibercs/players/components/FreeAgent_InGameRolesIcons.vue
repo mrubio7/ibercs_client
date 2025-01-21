@@ -3,58 +3,78 @@ import IconButton from '@/components/ui/icon-button/IconButton.vue';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { PLAYER_ROLES } from '@/libs/consts';
 import { GetRoleIcon } from '@/libs/utils';
-import { useVModel } from '@vueuse/core';
 import { PropType } from 'vue';
 
 const props = defineProps({
-    modelValue: {
-        required: true,
-        type: Array as PropType<string[]>
-    },
-    editable: {
-        required: false,
-        type: Boolean,
-        default: false
-    }
+  modelValue: {
+    type: Array as PropType<string[]>,
+    required: true
+  },
+  editable: {
+    type: Boolean,
+    default: false
+  }
 });
 
-const allRoles = Object.entries(PLAYER_ROLES).map(([_, value]) => value);
-
-const emits = defineEmits<{
-  (e: 'update:modelValue', payload: string[]): void;
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string[]): void;
 }>();
 
-const modelValue = useVModel(props, 'modelValue', emits);
+// Convertimos el objeto en un array de roles
+const allRoles = Object.values(PLAYER_ROLES);
 
-const handleEditRole = (role: string) => {
-    const currentRoles = Array.isArray(modelValue.value) ? modelValue.value : [];
+/**
+ * Manejador para (des)asignar roles.
+ * Se evita mutar directamente el array original.
+ */
+function handleEditRole(role: string) {
+  const currentRoles = props.modelValue;
+  let newValue: string[] = [];
 
-    if (currentRoles.includes(role)) {
-        modelValue.value.splice(modelValue.value.indexOf(role), 1);
-    } else {
-        modelValue.value.push(role);
-    }
+  if (currentRoles.includes(role)) {
+    newValue = currentRoles.filter(r => r !== role);
+  } else {
+    newValue = [...currentRoles, role];
+  }
 
-    emits('update:modelValue', modelValue.value);
-};
+  // Emitimos la actualización
+  emit('update:modelValue', newValue);
+}
 </script>
 
 <template>
-    <div v-if="modelValue">
-        <div class="flex justify-between">
-            <div v-for="rol in allRoles" :key="rol" class="h-fit">
-                <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger class="flex items-center">
-                            <IconButton class="flex items-center" v-if="editable" @click="handleEditRole(rol)" :class="`h-6 w-6 ${modelValue?.includes(rol) ? 'opacity-100' : 'opacity-20'}`" :icon="`${GetRoleIcon(rol)}`"/>
-                            <IconButton class="flex items-center" v-else :class="`h-6 w-6 ${modelValue?.includes(rol) ? 'opacity-100' : 'opacity-20'}`" :icon="`${GetRoleIcon(rol)}`"/>
-                        </TooltipTrigger>
-                        <TooltipContent class="ml-1.5">
-                            <p>{{ rol }}</p>
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
-            </div>
-        </div>
+  <div>
+    <div class="flex justify-between">
+      <div
+        v-for="rol in allRoles"
+        :key="rol"
+        class="h-fit"
+      >
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger class="flex items-center">
+              <!-- Botón cuando es editable -->
+              <IconButton
+                v-if="editable"
+                class="flex items-center"
+                @click="handleEditRole(rol)"
+                :class="`h-6 w-6 ${modelValue.includes(rol) ? 'opacity-100' : 'opacity-20'}`"
+                :icon="`${GetRoleIcon(rol)}`"
+              />
+              <!-- Botón cuando NO es editable -->
+              <IconButton
+                v-else
+                class="flex items-center"
+                :class="`h-6 w-6 ${modelValue?.includes(rol) ? 'opacity-100' : 'opacity-20'}`"
+                :icon="`${GetRoleIcon(rol)}`"
+              />
+            </TooltipTrigger>
+            <TooltipContent class="ml-1.5">
+              <p>{{ rol }}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
     </div>
+  </div>
 </template>

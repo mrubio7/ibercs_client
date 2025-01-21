@@ -24,13 +24,11 @@ watchEffect(() => {
 const freeAgent = ref<DTO_UpdateFreeAgent>({Description:"",FaceitId:"",InGameRoles:[],Publish:false})
 watchEffect(() => {
     if (myUser.value.Player != undefined) {
-        freeAgent.value.Description = myUser.value.Player.FreeAgent.Description
-        freeAgent.value.FaceitId = myUser.value.Player.FaceitId
-        freeAgent.value.InGameRoles = myUser.value.Player.FreeAgent.InGameRoles
-        freeAgent.value.Publish = myUser.value.Player.FreeAgent.Publish
-    }
-    console.log(freeAgent)
-    
+    freeAgent.value.Description = myUser.value.Player.FreeAgent.Description ?? ''
+    freeAgent.value.FaceitId = myUser.value.Player.FaceitId ?? ''
+    freeAgent.value.InGameRoles = myUser.value.Player.FreeAgent.InGameRoles ?? []
+    freeAgent.value.Publish = myUser.value.Player.FreeAgent.Publish ?? false
+  }
 })
 
 const { toast } = useToast()
