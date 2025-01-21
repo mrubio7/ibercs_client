@@ -1,4 +1,5 @@
 import { FreeAgent } from "./free_agent";
+import { Team } from "./team";
 
 export interface PlayerStats {
 	Id: number;
@@ -24,5 +25,6 @@ export interface Player {
 	FaceitElo: number;
 	Stats: PlayerStats;
 	FreeAgent: FreeAgent;
+	Team: Team | null;
 }
 

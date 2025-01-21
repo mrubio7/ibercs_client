@@ -15,6 +15,7 @@ import { formatTimestampToDateTime } from '@/libs/utils'
 import { ApiBackend } from '@/api/api_backend'
 import { useToast } from '@/components/ui/toast'
 import Title from '@/components/ui/title/Title.vue'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 const route = useRoute();
 const router = useRouter();
@@ -296,9 +297,25 @@ const handleUpdatePlayer = async (index: number) => {
 					</TableCell>
 					<TableCell class="text-left"><Badge variant="secondary">{{ player.FaceitElo }}</Badge></TableCell>
 					<TableCell class="text-right">
-						<Avatar class="w-7 h-7 flex">
-							<AvatarImage v-if="player.Avatar != undefined" :src="player.Avatar" alt="avatar" />
-						</Avatar>
+						<div class="flex gap-4 justify-end items-center w-16">
+							<div v-if="player.Team != null" class="flex gap-2 justify-end items-center">
+								<TooltipProvider>
+									<Tooltip>
+										<TooltipTrigger>
+											<Avatar class="w-5 h-5 grayscale flex bg-[transparent] hover:bg-slate-500 transition-all">
+												<AvatarImage :src="player.Team.Logo" alt="avatar" />
+											</Avatar>
+										</TooltipTrigger>
+										<TooltipContent>
+											<p>{{ player.Team.Name }}</p>
+										</TooltipContent>
+									</Tooltip>
+								</TooltipProvider>
+							</div>
+							<Avatar class="w-7 h-7 flex">
+								<AvatarImage v-if="player.Avatar != undefined" :src="player.Avatar" alt="avatar" />
+							</Avatar>
+						</div>
 					</TableCell>
 					<TableCell class="text-left">
 						{{ player.Nickname }}
