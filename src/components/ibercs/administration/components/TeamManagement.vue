@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { ApiBackend } from '@/api/api_backend';
-import { DTO_AssignPlayerToTeam } from '@/api/dto/request';
+import { DTO_ActivateTeam, DTO_AssignPlayerToTeam } from '@/api/dto/request';
 import Avatar from '@/components/ui/avatar/Avatar.vue';
 import AvatarImage from '@/components/ui/avatar/AvatarImage.vue';
 import ComboBox from '@/components/ui/combo-box/ComboBox.vue';
-import IconButton from '@/components/ui/icon-button/IconButton.vue';
 import Switch from '@/components/ui/switch/Switch.vue';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useToast } from '@/components/ui/toast';
-import { FaceitTeam, Team } from '@/entities/team';
+import { Team } from '@/entities/team';
 import { onMounted, ref, watchEffect } from 'vue';
 
 const { toast } = useToast()
@@ -17,27 +16,19 @@ const teamOpts = ref<{value:string, label:string}[]>([])
 const teamIdchosen = ref<string>("")
 
 onMounted(async() => {
-    const res = await ApiBackend.Teams.GetActiveTeams()
+    const res = await ApiBackend.Admin.GetAllTeams()
     if (res.ok) {
         teamOpts.value = Array.from(res.data as Team[]).map((user) => ({ value: user.FaceitId, label: user.Name }))
         loading.value = false
     }
 })
 
-const teamChosen = ref<FaceitTeam>()
-watchEffect(async () => {
-    const res = await ApiBackend.Teams.GetTeamFromFaceit(teamIdchosen.value)
-    if (res.ok) {
-        teamChosen.value = res.data
-    }
-})
-
-const teamSaved = ref<Team>()
+const teamChosen = ref<Team>()
 watchEffect(async () => {
     if (teamIdchosen.value != "") {
         const res = await ApiBackend.Teams.GetTeamByFaceitId(teamIdchosen.value)
         if (res.ok) {
-            teamSaved.value = res.data
+            teamChosen.value = res.data
             assignedPlayers.value = new Set((res.data as Team).Players.map(p => p.FaceitId))
         }
     }
@@ -73,6 +64,25 @@ const assignPlayer = async (playerFaceitId: string, teamId: number) => {
     })
     assignedPlayers.value.delete(playerFaceitId);
 }
+
+const activateTeam = async (active:boolean) => {
+    const dto:DTO_ActivateTeam = {
+        Activate: active,
+        FaceitId: teamChosen.value!.FaceitId
+    }
+    const res = await ApiBackend.Admin.ActivateTeam(dto)
+    if (res.ok) {
+        toast({
+            title: "Equipo activado correctamente",
+            description: `El equipo ha sido activado correctamente`,
+        })
+        return
+    }
+    toast({
+        title: "Error al activar equipo",
+        description: `Ha ocurrido un error al activar el equipo`,
+    })
+}
 </script>
 
 <template>
@@ -89,25 +99,19 @@ const assignPlayer = async (playerFaceitId: string, teamId: number) => {
                     <ComboBox v-model="teamIdchosen" :options="teamOpts" placeholder="Equipo" search-placeholder="Buscar equipo" />
                 </TableCell>
                 <TableCell class="">
-                    <div class="flex items-center justify-end gap-4">
-                        <IconButton icon="mdi:eye" />
-                    </div>
+                    <Switch v-if="teamChosen" v-model:checked="teamChosen.Active" @update:checked="activateTeam"/>
                 </TableCell>
             </TableRow>
 
             <TableRow>
                 <TableCell colspan="10">
-                    <Table v-if="teamChosen?.Members" class="rounded overflow-hidden">
+                    <Table v-if="teamChosen?.Players" class="rounded overflow-hidden">
                         <TableHeader>
-                            <TableHead class="w-10">Pais</TableHead>
                             <TableHead class="">Jugador</TableHead>
                             <TableHead class="w-40">Acciones</TableHead>
                         </TableHeader>
                         <TableBody>
-                            <TableRow v-for="m in teamChosen?.Members">
-                                <TableCell>
-                                    <IconButton :icon="`flag:${m.Country}-4x3`" class="rounded" />
-                                </TableCell>
+                            <TableRow v-for="m in teamChosen?.Players">
                                 <TableCell>
                                     <div class="flex items-center gap-4">
                                         <Avatar class="w-8 h-8">
@@ -121,9 +125,8 @@ const assignPlayer = async (playerFaceitId: string, teamId: number) => {
                                 <TableCell class="">
                                     <div class="flex justify-center items-center">
                                         <Switch
-                                            :disabled="m.Country !== 'es'"
                                             :checked="isPlayerAssigned(m.FaceitId)"
-                                            @update:checked="assignPlayer(m.FaceitId, teamSaved!.Id)"
+                                            @update:checked="assignPlayer(m.FaceitId, teamChosen!.Id)"
                                         />
                                     </div>
                                 </TableCell>

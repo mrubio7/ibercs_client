@@ -8,6 +8,7 @@ export interface Team {
     Name: string
     Logo: string
     Players: Player[]
+    Active: boolean
 }
 
 export interface FaceitTeam extends Team {
