@@ -30,7 +30,7 @@ watchEffect(async () => {
         const res = await ApiBackend.Teams.GetTeamByFaceitId(teamIdchosen.value)
         if (res.ok) {
             teamChosen.value = res.data
-            assignedPlayers.value = new Set((res.data as Team).Players.map(p => p.FaceitId))
+            assignedPlayers.value = new Set((res.data as Team).Players?.map(p => p.FaceitId))
         }
 
         const res2 = await ApiBackend.Teams.GetTeamFromFaceit(teamIdchosen.value)
