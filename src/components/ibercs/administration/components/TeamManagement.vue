@@ -24,6 +24,7 @@ onMounted(async() => {
 })
 
 const teamChosen = ref<Team>()
+const assignedPlayers = ref<Set<string>>(new Set());
 watchEffect(async () => {
     if (teamIdchosen.value != "") {
         const res = await ApiBackend.Teams.GetTeamByFaceitId(teamIdchosen.value)
@@ -31,9 +32,14 @@ watchEffect(async () => {
             teamChosen.value = res.data
             assignedPlayers.value = new Set((res.data as Team).Players.map(p => p.FaceitId))
         }
+
+        const res2 = await ApiBackend.Teams.GetTeamFromFaceit(teamIdchosen.value)
+        debugger
+        if (res2.ok) {
+            teamChosen.value!.Players = res2.data.Members
+        }
     }
 })
-const assignedPlayers = ref<Set<string>>(new Set());
 const isPlayerAssigned = (faceitId: string): boolean => {
     return assignedPlayers.value.has(faceitId)
 };
